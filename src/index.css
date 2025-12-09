@@ -1,0 +1,120 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+    scroll-padding-top: 120px;
+  }
+
+  * {
+    @apply scroll-smooth;
+  }
+  
+  body {
+    @apply bg-dark-950 text-slate-100 antialiased;
+    background: linear-gradient(to bottom, #0a0a0a 0%, #121212 50%, #0a0a0a 100%);
+    background-image: 
+      radial-gradient(at 20% 10%, rgba(212, 175, 55, 0.05) 0px, transparent 50%),
+      radial-gradient(at 80% 90%, rgba(192, 192, 192, 0.03) 0px, transparent 50%),
+      radial-gradient(at 50% 50%, rgba(229, 228, 226, 0.02) 0px, transparent 70%);
+  }
+}
+
+@layer components {
+  /* Glass Card Effect */
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-md border border-white/10 rounded-xl;
+  }
+
+  /* Gradient Text */
+  .gradient-text {
+    @apply bg-gradient-to-r from-accent-gold via-accent-silver to-accent-gold bg-clip-text text-transparent;
+  }
+
+  /* Button Primary */
+  .btn-primary {
+    @apply bg-accent-gold hover:bg-accent-gold/90 text-dark-950 px-6 py-3 rounded-lg font-semibold transition-all hover:scale-105 shadow-lg shadow-accent-gold/20;
+  }
+
+  /* Custom Scrollbar */
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    @apply bg-dark-900;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    @apply bg-accent-gold rounded-full;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    @apply bg-accent-gold/80;
+  }
+
+  /* Shine Animation */
+  @keyframes shine {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  /* Fade In Up Animation */
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.5s ease-out forwards;
+  }
+
+  /* Fade In Down Animation */
+  @keyframes fade-in-down {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .animate-fade-in-down {
+    animation: fade-in-down 0.5s ease-out forwards;
+  }
+}
+
+@layer utilities {
+  /* Text Shadows */
+  .text-shadow {
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+  }
+
+  .text-shadow-glow {
+    text-shadow: 0 0 20px rgba(212, 175, 55, 0.6);
+  }
+
+  /* Perspective */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+
+  /* Transform Style */
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+}

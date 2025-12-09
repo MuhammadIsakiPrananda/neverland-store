@@ -1,0 +1,12 @@
+version: '3.8'
+
+services:
+  frontend:
+    build: .
+    container_name: neverland-store-frontend
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    # You can add environment variables here if needed
+    # environment:
+    #   - NODE_ENV=production
