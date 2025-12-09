@@ -62,8 +62,8 @@ Make sure you have the following software installed on your machine:
 
 1.  **Clone the repository:**
     ```sh
-    git clone https://github.com/Isaki-Prananda/neverland-store-frontend.git
-    cd neverland-store-frontend
+    git clone https://github.com/Isaki-Prananda/neverland-store.git
+    cd neverland-store
     ```
 
 2.  **Install NPM packages:**
