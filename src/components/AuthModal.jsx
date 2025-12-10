@@ -2,8 +2,6 @@ import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { X, Mail, Lock, User, Eye, EyeOff, Github, Chrome, Facebook, Sparkles, Shield, Zap } from 'lucide-react';
 
-import useScrollLock from './useScrollLock';
-
 const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
   const [mode, setMode] = useState(initialMode);
   const [showPassword, setShowPassword] = useState(false);
@@ -19,8 +17,39 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
 
-  // Prevent body scroll and layout shift when modal is open
-  useScrollLock(isOpen);
+  // Prevent body scroll and layout shift when modal is open.
+  // This effect calculates the scrollbar width and adds padding to the body
+  // and the fixed header to prevent them from shifting when the scrollbar is hidden.
+  useEffect(() => {
+    if (isOpen) {
+      const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
+      const originalBodyPaddingRight = document.body.style.paddingRight;
+      const originalBodyOverflow = document.body.style.overflow;
+
+      document.body.style.overflow = 'hidden';
+      document.body.style.paddingRight = `${scrollbarWidth}px`;
+
+      // Apply padding to the fixed header as well
+      const header = document.querySelector('nav.fixed');
+      if (header) header.style.paddingRight = `${scrollbarWidth}px`;
+
+      return () => {
+        // Restore body styles
+        document.body.style.overflow = originalBodyOverflow;
+        document.body.style.paddingRight = originalBodyPaddingRight;
+
+        // For the header, temporarily disable transitions to prevent the "slide" effect on close.
+        if (header) {
+          header.style.transition = 'none';
+          header.style.paddingRight = originalBodyPaddingRight;
+          // Re-enable transitions on the next frame so other effects (like scroll) work again.
+          requestAnimationFrame(() => {
+            header.style.transition = ''; // Let the CSS class's transition take over.
+          });
+        }
+      };
+    }
+  }, [isOpen]);
 
   // Sync mode with initialMode when modal opens
   // Also resets the entire form state for a clean slate

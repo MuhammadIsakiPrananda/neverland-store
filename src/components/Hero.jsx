@@ -159,12 +159,12 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* Right Column: Image */}
+          {/* Right Column: Image (hanya tampil di desktop) */}
           <div 
             ref={containerRef}
             onMouseMove={handleMouseMove}
             onMouseLeave={handleMouseLeave}
-            className="relative group animate-fade-in-up lg:mt-0 mt-16" 
+            className="relative group animate-fade-in-up lg:mt-0 mt-16 hidden md:block" 
             style={{ animationDelay: '0.4s' }}
           >
             <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-accent-purple/20">

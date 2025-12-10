@@ -218,26 +218,26 @@ const Header = ({ menuOpen, setMenuOpen, onCartClick }) => {
                 <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-accent-gold rounded-full animate-pulse" />
               </button>
               
-              {/* Notifications */}
-              <div className="relative">
-                <button onClick={() => setShowNotifications(!showNotifications)} aria-label={`Notifications (${notifications} new)`} className="relative p-2 rounded-lg hover:bg-white/5 transition-all group">
-                  <Bell className="w-5 h-5 text-slate-400 group-hover:text-accent-gold transition-colors" />
-                  {notifications > 0 && (
-                    <span className="absolute -top-1 -right-1 min-w-[16px] h-[16px] bg-accent-gold rounded-full text-[10px] flex items-center justify-center text-dark-950 font-bold animate-pulse">
-                      {notifications}
-                    </span>
-                  )}
+              {/* Cart & Notifications */}
+              <div className="flex items-center gap-2">
+                <button onClick={onCartClick} aria-label="Shopping Cart (0 items)" className="relative p-2 rounded-lg hover:bg-white/5 transition-all group">
+                  <ShoppingBag className="w-5 h-5 text-slate-400 group-hover:text-accent-gold transition-colors" />
+                  <span className="absolute -top-1 -right-1 min-w-[16px] h-[16px] bg-white/20 rounded-full text-[9px] flex items-center justify-center text-white font-bold">
+                    0
+                  </span>
                 </button>
-                <NotificationPopover isOpen={showNotifications} onClose={() => setShowNotifications(false)} setNotificationCount={setNotifications} />
+                <div className="relative">
+                  <button onClick={() => setShowNotifications(!showNotifications)} aria-label={`Notifications (${notifications} new)`} className="relative p-2 rounded-lg hover:bg-white/5 transition-all group">
+                    <Bell className="w-5 h-5 text-slate-400 group-hover:text-accent-gold transition-colors" />
+                    {notifications > 0 && (
+                      <span className="absolute -top-1 -right-1 min-w-[16px] h-[16px] bg-accent-gold rounded-full text-[10px] flex items-center justify-center text-dark-950 font-bold animate-pulse">
+                        {notifications}
+                      </span>
+                    )}
+                  </button>
+                  <NotificationPopover isOpen={showNotifications} onClose={() => setShowNotifications(false)} setNotificationCount={setNotifications} />
+                </div>
               </div>
-
-              {/* Cart */}
-              <button onClick={onCartClick} aria-label="Shopping Cart (0 items)" className="relative p-2 rounded-lg hover:bg-white/5 transition-all group">
-                <ShoppingBag className="w-5 h-5 text-slate-400 group-hover:text-accent-gold transition-colors" />
-                <span className="absolute -top-1 -right-1 min-w-[16px] h-[16px] bg-white/20 rounded-full text-[9px] flex items-center justify-center text-white font-bold">
-                  0
-                </span>
-              </button>
             </div>
 
             <div className="w-px h-6 bg-white/10" />
