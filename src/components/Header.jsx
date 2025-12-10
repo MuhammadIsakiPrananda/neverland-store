@@ -4,7 +4,7 @@ import logoImage from '../assets/Neverland Games Store.png';
 import AuthModal from './AuthModal';
 import NotificationPopover from './NotificationPopover';
 
-const Header = ({ menuOpen, setMenuOpen, onCartClick }) => {
+const Header = ({ menuOpen, setMenuOpen, onCartClick, showToast, cartItemCount = 0 }) => {
   const [scrolled, setScrolled] = useState(false);
   const headerRef = useRef(null);
   const [notifications, setNotifications] = useState(3);
@@ -12,6 +12,7 @@ const Header = ({ menuOpen, setMenuOpen, onCartClick }) => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   const [authMode, setAuthMode] = useState('signin');
   const [showNotifications, setShowNotifications] = useState(false);
+  const notificationButtonRef = useRef(null);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -220,14 +221,16 @@ const Header = ({ menuOpen, setMenuOpen, onCartClick }) => {
               
               {/* Cart & Notifications */}
               <div className="flex items-center gap-2">
-                <button onClick={onCartClick} aria-label="Shopping Cart (0 items)" className="relative p-2 rounded-lg hover:bg-white/5 transition-all group">
+                <button onClick={onCartClick} aria-label={`Shopping Cart (${cartItemCount} items)`} className="relative p-2 rounded-lg hover:bg-white/5 transition-all group">
                   <ShoppingBag className="w-5 h-5 text-slate-400 group-hover:text-accent-gold transition-colors" />
-                  <span className="absolute -top-1 -right-1 min-w-[16px] h-[16px] bg-white/20 rounded-full text-[9px] flex items-center justify-center text-white font-bold">
-                    0
-                  </span>
+                  {cartItemCount > 0 && (
+                    <span className="absolute -top-1 -right-1 min-w-[16px] h-[16px] bg-accent-gold rounded-full text-[9px] flex items-center justify-center text-dark-950 font-bold">
+                      {cartItemCount}
+                    </span>
+                  )}
                 </button>
                 <div className="relative">
-                  <button onClick={() => setShowNotifications(!showNotifications)} aria-label={`Notifications (${notifications} new)`} className="relative p-2 rounded-lg hover:bg-white/5 transition-all group">
+                  <button ref={notificationButtonRef} onClick={() => setShowNotifications(!showNotifications)} aria-label={`Notifications (${notifications} new)`} className="relative p-2 rounded-lg hover:bg-white/5 transition-all group">
                     <Bell className="w-5 h-5 text-slate-400 group-hover:text-accent-gold transition-colors" />
                     {notifications > 0 && (
                       <span className="absolute -top-1 -right-1 min-w-[16px] h-[16px] bg-accent-gold rounded-full text-[10px] flex items-center justify-center text-dark-950 font-bold animate-pulse">
@@ -235,7 +238,7 @@ const Header = ({ menuOpen, setMenuOpen, onCartClick }) => {
                       </span>
                     )}
                   </button>
-                  <NotificationPopover isOpen={showNotifications} onClose={() => setShowNotifications(false)} setNotificationCount={setNotifications} />
+                  <NotificationPopover isOpen={showNotifications} onClose={() => setShowNotifications(false)} triggerRef={notificationButtonRef} />
                 </div>
               </div>
             </div>
@@ -271,11 +274,27 @@ const Header = ({ menuOpen, setMenuOpen, onCartClick }) => {
           {/* Mobile Menu Button */}
           <div className="flex lg:hidden items-center gap-2">
             {/* Mobile Cart */}
-            <button onClick={onCartClick} aria-label="Shopping Cart (0 items)" className="relative p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all">
+            <button onClick={onCartClick} aria-label={`Shopping Cart (${cartItemCount} items)`} className="relative p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all">
               <ShoppingBag className="w-5 h-5 text-slate-400" />
-              <span className="absolute -top-1 -right-1 w-4 h-4 bg-white/20 rounded-full text-[9px] flex items-center justify-center text-white font-bold">
-                0
-              </span>
+              {cartItemCount > 0 && (
+                <span className="absolute -top-1 -right-1 min-w-[16px] h-4 bg-accent-gold rounded-full text-[9px] flex items-center justify-center text-dark-950 font-bold">
+                  {cartItemCount}
+                </span>
+              )}
+            </button>
+
+            {/* Mobile Notifications */}
+            <button
+              onClick={() => setShowNotifications((v) => !v)}
+              aria-label={`Notifications (${notifications} new)`}
+              className="relative p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all"
+            >
+              <Bell className="w-5 h-5 text-slate-400" />
+              {notifications > 0 && (
+                <span className="absolute -top-1 -right-1 min-w-[16px] h-4 bg-accent-gold rounded-full text-[9px] flex items-center justify-center text-dark-950 font-bold animate-pulse">
+                  {notifications}
+                </span>
+              )}
             </button>
             
             {/* Hamburger */}
@@ -345,23 +364,6 @@ const Header = ({ menuOpen, setMenuOpen, onCartClick }) => {
                 <div className="w-2 h-2 rounded-full bg-accent-gold animate-pulse" />
               </button>
 
-              {/* Notifications */}
-              <div className="relative">
-                <button onClick={() => setShowNotifications(!showNotifications)} className="w-full flex items-center justify-between px-4 py-3 bg-white/5 hover:bg-white/10 rounded-lg transition-all">
-                  <div className="flex items-center gap-3">
-                    <Bell className="w-5 h-5 text-slate-400" />
-                    <span className="text-sm font-medium text-slate-300">Notifications</span>
-                  </div>
-                  {notifications > 0 && (
-                    <span className="min-w-[20px] h-5 px-2 bg-accent-gold rounded-full text-xs font-bold text-dark-950 flex items-center justify-center animate-pulse">
-                      {notifications}
-                    </span>
-                  )}
-                </button>
-                {/* Note: Popover might not be ideally positioned on mobile, but it will be functional. */}
-                <NotificationPopover isOpen={showNotifications} onClose={() => setShowNotifications(false)} setNotificationCount={setNotifications} />
-              </div>
-
               {/* Login */}
               <button 
                 onClick={() => {
@@ -386,6 +388,7 @@ const Header = ({ menuOpen, setMenuOpen, onCartClick }) => {
         isOpen={showAuthModal}
         onClose={() => setShowAuthModal(false)}
         initialMode={authMode}
+        showToast={showToast}
       />
     </nav>
   );

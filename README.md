@@ -1,15 +1,23 @@
 <div align="center">
-  <img src="./src/assets/Neverland Games Store.png" alt="Neverland Store Logo" width="120" />
+  <a href="https://isaki-prananda.github.io/neverland-store/">
+    <img src="./src/assets/Neverland Games Store.png" alt="Neverland Store Logo" width="120" />
+  </a>
   <h1 align="center">Neverland Store Frontend</h1>
   <p align="center">
     A modern and responsive web frontend for Neverland Store, a premium gaming top-up platform.
     <br />
-    <a href="#-key-features"><strong>Explore the features »</strong></a>
+    <a href="https://isaki-prananda.github.io/neverland-store/"><strong>View Demo</strong></a>
     <br />
     <br />
     <a href="https://github.com/Isaki-Prananda/neverland-store/issues">Report Bug</a>
     ·
     <a href="https://github.com/Isaki-Prananda/neverland-store/issues">Request Feature</a>
+  </p>
+  <p align="center">
+    <!-- Badges -->
+    <img src="https://img.shields.io/github/license/Isaki-Prananda/neverland-store?style=for-the-badge" alt="License">
+    <img src="https://img.shields.io/github/stars/Isaki-Prananda/neverland-store?style=for-the-badge" alt="Stars">
+    <img src="https://img.shields.io/github/forks/Isaki-Prananda/neverland-store?style=for-the-badge" alt="Forks">
   </p>
 </div>
 
@@ -17,7 +25,8 @@
 
 ## About The Project
 
-<!-- Ganti URL ini dengan URL screenshot aplikasi Anda -->
+<!-- Ganti dengan path screenshot yang benar, contoh: -->
+<!-- ![Project Screenshot](./public/screenshot.png) -->
 
 
 The official web storefront for Neverland Store. This is a feature-rich single-page application (SPA) designed to provide a seamless and premium experience for gamers looking to top-up their favorite games. The project showcases a modern frontend architecture, a sleek user interface, and a fully responsive design.
@@ -33,16 +42,15 @@ This repository contains the complete frontend source code, containerized with D
 *   **Scroll Spy Navigation**: The header navigation automatically highlights the section currently in view.
 *   **Containerized**: Ready to deploy with Docker and Nginx for optimal performance and scalability.
 
-### 🛠️ Tech Stack
+### 🛠️ Built With
 
 This project is built with a modern and robust technology stack:
 
-*   **React**: A JavaScript library for building user interfaces.
-*   **Vite**: A next-generation frontend tooling that provides an extremely fast development experience.
-*   **Tailwind CSS**: A utility-first CSS framework for rapid UI development.
-*   **Lucide React**: A beautiful and consistent icon toolkit.
-*   **Docker**: A platform for developing, shipping, and running applications in containers.
-*   **Nginx**: A high-performance web server used to serve the production build.
+*   ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
+*   ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white)
+*   ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=white)
+*   ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
+*   ![Nginx](https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white)
 
 ---
 
@@ -62,13 +70,8 @@ Make sure you have the following software installed on your machine:
 
 1.  **Clone the repository:**
     ```sh
-<<<<<<< HEAD
-    git clone https://github.com/Isaki-Prananda/neverland-store-frontend.git
-    cd neverland-store-frontend
-=======
     git clone https://github.com/Isaki-Prananda/neverland-store.git
     cd neverland-store
->>>>>>> 3feee2e76fdfd4938d45b508ef701cbba3b4c074
     ```
 
 2.  **Install NPM packages:**
@@ -95,10 +98,10 @@ This is the recommended way to run the application in a production-like environm
 2.  **Access the application:**
     Open your browser and navigate to `http://localhost:8080`.
 
-To stop the container, run:
-```sh
-docker-compose down
-```
+3.  **Stop the container:**
+    ```sh
+    docker-compose down
+    ```
 
 ---
 

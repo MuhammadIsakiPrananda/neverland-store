@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 // Import komponen modular
 import Header from './components/Header';
 import Hero from './components/Hero';
-import Stats from './components/Stats';
 import Features from './components/Features';
 import GameList from './components/GameList';
 import GameModal from './components/GameModal';
@@ -12,9 +11,10 @@ import CartModal from './components/CartModal';
 import FAQ from './components/FAQ';
 import Newsletter from './components/Newsletter';
 import Footer from './components/Footer';
+import ToastNotification from './components/ToastNotification';
 
 // Import data dan utils
-import { games, categories, stats, features, paymentMethods, testimonials, faqs } from './data/appData.jsx';
+import { games, categories, features, paymentMethods, testimonials, faqs } from './data/appData.jsx';
 import { formatPrice } from './utils/formatters';
 
 const App = () => {
@@ -22,6 +22,12 @@ const App = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [isCartOpen, setIsCartOpen] = useState(false);
+  const [toast, setToast] = useState(null);
+
+  const showToast = (message, type = 'success') => {
+    setToast({ message, type });
+    setTimeout(() => setToast(null), 3000);
+  };
 
   // Filter games based on search query
   const filteredGames = games.filter(game =>
@@ -37,6 +43,7 @@ const App = () => {
         menuOpen={menuOpen} 
         setMenuOpen={setMenuOpen} 
         onCartClick={() => setIsCartOpen(true)}
+        showToast={showToast}
       />
 
       {/* Main Content */}
@@ -50,9 +57,6 @@ const App = () => {
         <section id="features">
           <Features features={features} />
         </section>
-
-        {/* Stats Section */}
-        <Stats stats={stats} />
 
         {/* Games List Section */}
         <section id="games">
@@ -90,6 +94,15 @@ const App = () => {
 
       {/* Footer */}
       <Footer />
+
+      {/* Toast Notification */}
+      {toast && (
+        <ToastNotification
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+        />
+      )}
     </div>
   );
 };

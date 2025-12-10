@@ -66,11 +66,9 @@ const FAQ = ({ faqs }) => {
                   opacity: openIndex === index ? '1' : '0'
                 }}
               >
-                <div className="px-6 pb-6 pl-18">
-                  <div className="pl-12 border-l-2 border-primary-500/30">
-                    <p className="text-slate-300 leading-relaxed">
-                      {faq.answer}
-                    </p>
+                <div className="px-6 pb-6">
+                  <div className="ml-12 pl-6 border-l-2 border-primary-500/30">
+                    <p className="text-slate-300 leading-relaxed">{faq.answer}</p>
                   </div>
                 </div>
               </div>

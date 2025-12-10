@@ -191,18 +191,20 @@ const GameList = ({ games, onGameSelect, categories }) => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [sortBy, setSortBy] = useState('popular');
 
+  const sortFunctions = {
+    popular: (a, b) => (b.popular ? 1 : -1) - (a.popular ? 1 : -1) || (parseFloat(b.rating) - parseFloat(a.rating)),
+    rating: (a, b) => parseFloat(b.rating) - parseFloat(a.rating),
+    trending: (a, b) => (b.trending ? 1 : -1) - (a.trending ? 1 : -1) || (parseFloat(b.rating) - parseFloat(a.rating)),
+  };
+
   // Filter and sort games
   let processedGames = selectedCategory === 'all' 
     ? games 
     : games.filter(game => game.category === selectedCategory);
 
   // Sort games
-  if (sortBy === 'popular') {
-    processedGames = [...processedGames].sort((a, b) => b.popular - a.popular);
-  } else if (sortBy === 'rating') {
-    processedGames = [...processedGames].sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
-  } else if (sortBy === 'trending') {
-    processedGames = [...processedGames].sort((a, b) => b.trending - a.trending);
+  if (sortFunctions[sortBy]) {
+    processedGames = [...processedGames].sort(sortFunctions[sortBy]);
   }
 
   return (

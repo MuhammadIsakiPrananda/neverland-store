@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { X, Mail, Lock, User, Eye, EyeOff, Github, Chrome, Facebook, Sparkles, Shield, Zap } from 'lucide-react';
 
-const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
+const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
   const [mode, setMode] = useState(initialMode);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -160,6 +160,13 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
       console.log('Form submitted:', formData);
       setIsLoading(false);
       onClose();
+      // Show success toast
+      if (showToast) {
+        const message = mode === 'signin' 
+          ? 'Login berhasil! Selamat datang kembali.' 
+          : 'Akun berhasil dibuat! Silakan login.';
+        showToast(message, 'success');
+      }
       setFormData({
         name: '',
         email: '',
@@ -455,7 +462,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin' }) => {
                     onClick={switchMode}
                     className="text-accent-gold hover:text-accent-gold/80 font-semibold transition-colors"
                   >
-                    {mode === 'signup' ? 'Sign In' : 'Sign Up'}
+                    {mode === 'signup' ? 'Sign In' : 'Create one'}
                   </button>
                 </p>
               </div>

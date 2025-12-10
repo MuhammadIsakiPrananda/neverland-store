@@ -133,9 +133,9 @@ const Newsletter = () => {
             {/* Social Proof */}
             <div className="mt-8 flex items-center justify-center space-x-2 text-sm text-slate-400 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
               <div className="flex -space-x-2">
-                {['👨', '👩', '👨‍💼', '👩‍🦰', '👨‍🎓'].map((avatar, i) => (
+                {['👨', '👩', '👨‍💼', '👩‍🦰', '👨‍🎓'].map((avatar) => (
                   <div
-                    key={i}
+                    key={avatar}
                     className="w-8 h-8 bg-gradient-to-br from-primary-500 to-accent-purple rounded-full flex items-center justify-center border-2 border-dark-900"
                   >
                     {avatar}
