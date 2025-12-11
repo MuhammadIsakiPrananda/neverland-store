@@ -1,5 +1,12 @@
 import React from 'react';
 import { Zap, Mail, Phone, MapPin, Facebook, Instagram, Twitter, Youtube, ArrowRight, Heart, Shield, Award } from 'lucide-react';
+import LogoBCA from '../../assets/Logo BCA.webp';
+import LogoBRI from '../../assets/Logo BRI.webp';
+import LogoDANA from '../../assets/Logo DANA.webp';
+import LogoOVO from '../../assets/Logo OVO.webp';
+import LogoMandiri from '../../assets/Logo Mandiri.webp';
+import LogoGopay from '../../assets/Logo Gopay.webp';
+
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -168,14 +175,37 @@ const Footer = () => {
             <div>
               <p className="text-sm text-slate-400 mb-3 text-center md:text-right">We Accept</p>
               <div className="flex flex-wrap items-center justify-center md:justify-end gap-2">
-                {['GoPay', 'OVO', 'DANA', 'ShopeePay', 'BCA', 'Mandiri'].map((payment, index) => (
-                  <div
-                    key={index}
-                    className="glass-card px-3 py-2 rounded-lg text-xs font-medium text-slate-300"
-                  >
-                    {payment}
-                  </div>
-                ))}
+                {/* Payment method with icon */}
+                {/* GoPay */}
+                <div className="glass-card px-3 py-2 rounded-lg text-xs font-medium text-slate-300 flex items-center gap-2">
+                  <img src={LogoGopay} alt="Logo GoPay" className="w-8 h-8 object-contain bg-white rounded p-0.5" />
+                  <span>GoPay</span>
+                </div>
+                {/* OVO */}
+                <div className="glass-card px-3 py-2 rounded-lg text-xs font-medium text-slate-300 flex items-center gap-2">
+                  <img src={LogoOVO} alt="Logo OVO" className="w-8 h-8 object-contain bg-white rounded p-0.5" />
+                  <span>OVO</span>
+                </div>
+                {/* DANA */}
+                <div className="glass-card px-3 py-2 rounded-lg text-xs font-medium text-slate-300 flex items-center gap-2">
+                  <img src={LogoDANA} alt="Logo DANA" className="w-8 h-8 object-contain bg-white rounded p-0.5" />
+                  <span>DANA</span>
+                </div>
+                {/* BCA */}
+                <div className="glass-card px-3 py-2 rounded-lg text-xs font-medium text-slate-300 flex items-center gap-2">
+                  <img src={LogoBCA} alt="Logo BCA" className="w-8 h-8 object-contain bg-white rounded p-0.5" />
+                  <span>BCA</span>
+                </div>
+                {/* BRI */}
+                <div className="glass-card px-3 py-2 rounded-lg text-xs font-medium text-slate-300 flex items-center gap-2">
+                  <img src={LogoBRI} alt="Logo BRI" className="w-8 h-8 object-contain bg-white rounded p-0.5" />
+                  <span>BRI</span>
+                </div>
+                {/* Mandiri */}
+                <div className="glass-card px-3 py-2 rounded-lg text-xs font-medium text-slate-300 flex items-center gap-2">
+                  <img src={LogoMandiri} alt="Logo Mandiri" className="w-8 h-8 object-contain bg-white rounded p-0.5" />
+                  <span>Mandiri</span>
+                </div>
               </div>
             </div>
           </div>

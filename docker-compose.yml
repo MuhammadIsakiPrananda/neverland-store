@@ -1,12 +1,30 @@
 version: '3.8'
 
 services:
-  frontend:
-    build: .
-    container_name: neverland-store-frontend
+  backend:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: neverland_backend
+    env_file:
+      - ./backend/.env
     ports:
-      - "8080:80"
-    restart: unless-stopped
-    # You can add environment variables here if needed
-    # environment:
-    #   - NODE_ENV=production
+      - "5100:5000"
+    networks:
+      - app-network
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: neverland_frontend
+    ports:
+      - "8088:80"
+    depends_on:
+      - backend
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

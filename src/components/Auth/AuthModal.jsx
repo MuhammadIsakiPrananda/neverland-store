@@ -1,4 +1,28 @@
+  // Password strength requirements
+  const passwordRequirements = [
+    {
+      label: 'At least 8 characters',
+      test: (pw) => pw.length >= 8,
+    },
+    {
+      label: 'Uppercase letter',
+      test: (pw) => /[A-Z]/.test(pw),
+    },
+    {
+      label: 'Lowercase letter',
+      test: (pw) => /[a-z]/.test(pw),
+    },
+    {
+      label: 'Number',
+      test: (pw) => /\d/.test(pw),
+    },
+    {
+      label: 'Symbol',
+      test: (pw) => /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]/.test(pw),
+    },
+  ];
 import React, { useState, useEffect, useRef } from 'react';
+// Tambah fetch polyfill jika perlu
 import { createPortal } from 'react-dom';
 import { X, Mail, Lock, User, Eye, EyeOff, Github, Chrome, Facebook, Sparkles, Shield, Zap } from 'lucide-react';
 
@@ -6,6 +30,11 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
   const [mode, setMode] = useState(initialMode);
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [showForgot, setShowForgot] = useState(false);
+  const [forgotEmail, setForgotEmail] = useState("");
+  const [forgotLoading, setForgotLoading] = useState(false);
+  const [forgotSuccess, setForgotSuccess] = useState("");
+  const [forgotError, setForgotError] = useState("");
   const modalRef = useRef(null);
   const [formData, setFormData] = useState({
     name: '',
@@ -59,6 +88,11 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
       setErrors({});
       setShowPassword(false);
       setShowConfirmPassword(false);
+      setShowForgot(false);
+      setForgotEmail("");
+      setForgotSuccess("");
+      setForgotError("");
+      setForgotLoading(false);
       // Reset form data to ensure the modal is always fresh
       setFormData({
         name: '',
@@ -149,32 +183,79 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    
     if (!validateForm()) return;
-
     setIsLoading(true);
-    
-    setTimeout(() => {
-      console.log('Form submitted:', formData);
-      setIsLoading(false);
-      onClose();
-      // Show success toast
-      if (showToast) {
-        const message = mode === 'signin' 
-          ? 'Login berhasil! Selamat datang kembali.' 
-          : 'Akun berhasil dibuat! Silakan login.';
-        showToast(message, 'success');
+    if (mode === 'signup') {
+      try {
+        const res = await fetch('/api/auth/register', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: formData.name,
+            email: formData.email,
+            password: formData.password
+          })
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          setErrors(prev => ({ ...prev, email: data.message || 'Registration failed' }));
+          setIsLoading(false);
+          return;
+        }
+        setIsLoading(false);
+        onClose();
+        if (showToast) showToast('Akun berhasil dibuat! Silakan login.', 'success');
+        setFormData({
+          name: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+          agreeTerms: false
+        });
+      } catch (err) {
+        setIsLoading(false);
+        setErrors(prev => ({ ...prev, email: 'Registration failed. Try again.' }));
       }
-      setFormData({
-        name: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-        agreeTerms: false
-      });
-    }, 2000);
+    } else {
+      try {
+        const res = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email: formData.email,
+            password: formData.password
+          })
+        });
+        const data = await res.json();
+        if (!res.ok) {
+          setErrors(prev => ({ ...prev, password: data.message || 'Login failed' }));
+          setIsLoading(false);
+          return;
+        }
+        // Simpan token/user ke localStorage jika perlu
+        localStorage.setItem('token', data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
+        // Trigger custom event for login (with delay to ensure localStorage is set)
+        setTimeout(() => {
+          window.dispatchEvent(new Event('user-login'));
+        }, 10);
+        setIsLoading(false);
+        onClose();
+        if (showToast) showToast('Login berhasil! Selamat datang kembali.', 'success');
+        setFormData({
+          name: '',
+          email: '',
+          password: '',
+          confirmPassword: '',
+          agreeTerms: false
+        });
+      } catch (err) {
+        setIsLoading(false);
+        setErrors(prev => ({ ...prev, password: 'Login failed. Try again.' }));
+      }
+    }
   };
 
   const handleSocialLogin = (provider) => {
@@ -184,6 +265,25 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
   const switchMode = () => {
     setMode(mode === 'signin' ? 'signup' : 'signin');
     setErrors({});
+  };
+
+  // Handler for forgot password
+  const handleForgotSubmit = (e) => {
+    e.preventDefault();
+    setForgotSuccess("");
+    setForgotError("");
+    setForgotLoading(true);
+    // Simulasi request
+    setTimeout(() => {
+      if (!forgotEmail.trim()) {
+        setForgotError("Email wajib diisi.");
+      } else if (!/\S+@\S+\.\S+/.test(forgotEmail)) {
+        setForgotError("Format email tidak valid.");
+      } else {
+        setForgotSuccess("Link reset password telah dikirim ke email Anda.");
+      }
+      setForgotLoading(false);
+    }, 1500);
   };
 
   return createPortal(
@@ -196,19 +296,84 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
       <div 
         className="absolute inset-0 bg-black/80 backdrop-blur-md"
       />
-      
       <div ref={modalRef} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg max-h-[90vh] overflow-y-auto bg-gradient-to-br from-dark-900 to-dark-950 rounded-3xl border border-white/10 shadow-2xl animate-scale-in custom-scrollbar z-10">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-accent-gold/5 rounded-full blur-3xl" />
-            <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent-silver/5 rounded-full blur-3xl" />
-            
-            <button
-              onClick={onClose}
-              className="absolute top-4 right-4 z-10 p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-200 group"
-            >
-              <X className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" />
-            </button>
-
-            <div className="relative p-8">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-accent-gold/5 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent-silver/5 rounded-full blur-3xl" />
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 z-10 p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-200 group"
+        >
+          <X className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" />
+        </button>
+        <div className="relative p-8">
+          {showForgot ? (
+            <>
+              <div className="text-center mb-8">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-accent-gold/20 to-accent-gold/5 border border-accent-gold/20 mb-4">
+                  <Lock className="w-8 h-8 text-accent-gold" />
+                </div>
+                  <h2 id="auth-modal-title" className="text-2xl font-bold text-white mb-2">
+                    Forgot Password
+                  </h2>
+                  <p className="text-sm text-slate-400">
+                    Enter your Neverland Store account email. We will send a password reset link to your email.
+                  </p>
+              </div>
+              <form onSubmit={handleForgotSubmit} className="space-y-6">
+                <div>
+                  <label className="block text-sm font-medium text-slate-300 mb-2">Email</label>
+                  <div className="relative">
+                    <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
+                    <input
+                      type="email"
+                      name="forgotEmail"
+                      value={forgotEmail}
+                      onChange={e => setForgotEmail(e.target.value)}
+                      placeholder="your@email.com"
+                      className={`w-full pl-10 pr-4 py-3 bg-white/5 border ${forgotError ? 'border-red-500/50' : 'border-white/10'} rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-accent-gold/50 focus:bg-white/10 transition-all duration-200`}
+                      autoFocus
+                      disabled={forgotLoading}
+                    />
+                  </div>
+                  {forgotError && <p className="mt-1 text-xs text-red-400">{forgotError}</p>}
+                  {forgotSuccess && <p className="mt-1 text-xs text-green-400">{forgotSuccess}</p>}
+                </div>
+                <button
+                  type="submit"
+                  disabled={forgotLoading}
+                  className="w-full relative group px-6 py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 bg-accent-gold hover:bg-accent-gold/90 text-dark-950 overflow-hidden shadow-lg shadow-accent-gold/20 hover:shadow-accent-gold/30 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
+                  <span className="relative flex items-center justify-center gap-2">
+                    {forgotLoading ? (
+                      <div className="w-5 h-5 border-2 border-dark-950/30 border-t-dark-950 rounded-full animate-spin" />
+                    ) : (
+                      <Zap className="w-5 h-5" />
+                    )}
+                    Kirim Link Reset
+                  </span>
+                </button>
+                <div className="mt-4 flex justify-between">
+                  <button
+                    type="button"
+                    className="text-sm text-accent-gold hover:text-accent-gold/80 font-semibold transition-colors"
+                    onClick={() => setShowForgot(false)}
+                  >
+                    Kembali ke Login
+                  </button>
+                  <button
+                    type="button"
+                    className="text-sm text-slate-400 hover:text-accent-gold font-semibold transition-colors"
+                    onClick={() => { setShowForgot(false); setMode('signup'); }}
+                  >
+                    Register
+                  </button>
+                </div>
+              </form>
+            </>
+          ) : (
+            <>
+              {/* ...existing code... */}
               <div className="text-center mb-8">
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-accent-gold/20 to-accent-gold/5 border border-accent-gold/20 mb-4">
                   {mode === 'signup' ? (
@@ -227,7 +392,6 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                   }
                 </p>
               </div>
-
               <div className="space-y-3 mb-6">
                 <button
                   onClick={() => handleSocialLogin('google')}
@@ -238,7 +402,6 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                     Continue with Google
                   </span>
                 </button>
-                
                 <div className="grid grid-cols-2 gap-3">
                   <button
                     onClick={() => handleSocialLogin('github')}
@@ -249,7 +412,6 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                       Github
                     </span>
                   </button>
-                  
                   <button
                     onClick={() => handleSocialLogin('facebook')}
                     className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-200 group"
@@ -261,7 +423,6 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                   </button>
                 </div>
               </div>
-
               <div className="relative flex items-center justify-center mb-6">
                 <div className="absolute inset-0 flex items-center">
                   <div className="w-full border-t border-white/10" />
@@ -270,13 +431,10 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                   OR CONTINUE WITH EMAIL
                 </div>
               </div>
-
               <form onSubmit={handleSubmit} className="space-y-4">
                 {mode === 'signup' && (
                   <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-2">
-                      Full Name
-                    </label>
+                    <label className="block text-sm font-medium text-slate-300 mb-2">Full Name</label>
                     <div className="relative">
                       <User className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
                       <input
@@ -285,21 +443,14 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                         value={formData.name}
                         onChange={handleChange}
                         placeholder="John Doe"
-                        className={`w-full pl-10 pr-4 py-3 bg-white/5 border ${
-                          errors.name ? 'border-red-500/50' : 'border-white/10'
-                        } rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-accent-gold/50 focus:bg-white/10 transition-all duration-200`}
+                        className={`w-full pl-10 pr-4 py-3 bg-white/5 border ${errors.name ? 'border-red-500/50' : 'border-white/10'} rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-accent-gold/50 focus:bg-white/10 transition-all duration-200`}
                       />
                     </div>
-                    {errors.name && (
-                      <p className="mt-1 text-xs text-red-400">{errors.name}</p>
-                    )}
+                    {errors.name && <p className="mt-1 text-xs text-red-400">{errors.name}</p>}
                   </div>
                 )}
-
                 <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">
-                    Email Address
-                  </label>
+                  <label className="block text-sm font-medium text-slate-300 mb-2">Email Address</label>
                   <div className="relative">
                     <Mail className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
                     <input
@@ -308,20 +459,13 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="you@example.com"
-                      className={`w-full pl-10 pr-4 py-3 bg-white/5 border ${
-                        errors.email ? 'border-red-500/50' : 'border-white/10'
-                      } rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-accent-gold/50 focus:bg-white/10 transition-all duration-200`}
+                      className={`w-full pl-10 pr-4 py-3 bg-white/5 border ${errors.email ? 'border-red-500/50' : 'border-white/10'} rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-accent-gold/50 focus:bg-white/10 transition-all duration-200`}
                     />
                   </div>
-                  {errors.email && (
-                    <p className="mt-1 text-xs text-red-400">{errors.email}</p>
-                  )}
+                  {errors.email && <p className="mt-1 text-xs text-red-400">{errors.email}</p>}
                 </div>
-
                 <div>
-                  <label className="block text-sm font-medium text-slate-300 mb-2">
-                    Password
-                  </label>
+                  <label className="block text-sm font-medium text-slate-300 mb-2">Password</label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
                     <input
@@ -330,32 +474,35 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                       value={formData.password}
                       onChange={handleChange}
                       placeholder="••••••••"
-                      className={`w-full pl-10 pr-12 py-3 bg-white/5 border ${
-                        errors.password ? 'border-red-500/50' : 'border-white/10'
-                      } rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-accent-gold/50 focus:bg-white/10 transition-all duration-200`}
+                      className={`w-full pl-10 pr-12 py-3 bg-white/5 border ${errors.password ? 'border-red-500/50' : 'border-white/10'} rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-accent-gold/50 focus:bg-white/10 transition-all duration-200`}
                     />
                     <button
                       type="button"
                       onClick={() => setShowPassword(!showPassword)}
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors"
                     >
-                      {showPassword ? (
-                        <EyeOff className="w-5 h-5" />
-                      ) : (
-                        <Eye className="w-5 h-5" />
-                      )}
+                      {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                     </button>
                   </div>
-                  {errors.password && (
-                    <p className="mt-1 text-xs text-red-400">{errors.password}</p>
+                  {/* Password strength indicator */}
+                  {mode === 'signup' && (
+                    <ul className="mt-2 mb-1 text-xs space-y-1">
+                      {passwordRequirements.map((req, idx) => {
+                        const met = req.test(formData.password);
+                        return (
+                          <li key={idx} className={met ? 'text-green-400 flex items-center gap-1' : 'text-slate-500 flex items-center gap-1'}>
+                            <span className="inline-block w-3 h-3 rounded-full mr-1" style={{ background: met ? '#22c55e' : '#64748b' }}></span>
+                            {req.label}
+                          </li>
+                        );
+                      })}
+                    </ul>
                   )}
+                  {errors.password && <p className="mt-1 text-xs text-red-400">{errors.password}</p>}
                 </div>
-
                 {mode === 'signup' && (
                   <div>
-                    <label className="block text-sm font-medium text-slate-300 mb-2">
-                      Confirm Password
-                    </label>
+                    <label className="block text-sm font-medium text-slate-300 mb-2">Confirm Password</label>
                     <div className="relative">
                       <Lock className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-slate-500" />
                       <input
@@ -364,28 +511,19 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                         value={formData.confirmPassword}
                         onChange={handleChange}
                         placeholder="••••••••"
-                        className={`w-full pl-10 pr-12 py-3 bg-white/5 border ${
-                          errors.confirmPassword ? 'border-red-500/50' : 'border-white/10'
-                        } rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-accent-gold/50 focus:bg-white/10 transition-all duration-200`}
+                        className={`w-full pl-10 pr-12 py-3 bg-white/5 border ${errors.confirmPassword ? 'border-red-500/50' : 'border-white/10'} rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-accent-gold/50 focus:bg-white/10 transition-all duration-200`}
                       />
                       <button
                         type="button"
                         onClick={() => setShowConfirmPassword(!showConfirmPassword)}
                         className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors"
                       >
-                        {showConfirmPassword ? (
-                          <EyeOff className="w-5 h-5" />
-                        ) : (
-                          <Eye className="w-5 h-5" />
-                        )}
+                        {showConfirmPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
                       </button>
                     </div>
-                    {errors.confirmPassword && (
-                      <p className="mt-1 text-xs text-red-400">{errors.confirmPassword}</p>
-                    )}
+                    {errors.confirmPassword && <p className="mt-1 text-xs text-red-400">{errors.confirmPassword}</p>}
                   </div>
                 )}
-
                 {mode === 'signin' ? (
                   <div className="flex items-center justify-between">
                     <label className="flex items-center gap-2 cursor-pointer group">
@@ -393,13 +531,12 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                         type="checkbox"
                         className="w-4 h-4 rounded border-white/20 bg-white/5 text-accent-gold focus:ring-accent-gold/50 focus:ring-offset-0 cursor-pointer"
                       />
-                      <span className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors">
-                        Remember me
-                      </span>
+                      <span className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors">Remember me</span>
                     </label>
                     <button
                       type="button"
                       className="text-sm text-accent-gold hover:text-accent-gold/80 transition-colors font-medium"
+                      onClick={() => setShowForgot(true)}
                     >
                       Forgot Password?
                     </button>
@@ -412,27 +549,17 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                         name="agreeTerms"
                         checked={formData.agreeTerms}
                         onChange={handleChange}
-                        className={`mt-0.5 w-4 h-4 rounded border-white/20 bg-white/5 text-accent-gold focus:ring-accent-gold/50 focus:ring-offset-0 cursor-pointer ${
-                          errors.agreeTerms ? 'border-red-500/50' : ''
-                        }`}
+                        className={`mt-0.5 w-4 h-4 rounded border-white/20 bg-white/5 text-accent-gold focus:ring-accent-gold/50 focus:ring-offset-0 cursor-pointer ${errors.agreeTerms ? 'border-red-500/50' : ''}`}
                       />
                       <span className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors">
                         I agree to the{' '}
-                        <a href="#" className="text-accent-gold hover:underline">
-                          Terms of Service
-                        </a>{' '}
-                        and{' '}
-                        <a href="#" className="text-accent-gold hover:underline">
-                          Privacy Policy
-                        </a>
+                        <a href="#" className="text-accent-gold hover:underline">Terms of Service</a>{' '}and{' '}
+                        <a href="#" className="text-accent-gold hover:underline">Privacy Policy</a>
                       </span>
                     </label>
-                    {errors.agreeTerms && (
-                      <p className="mt-1 text-xs text-red-400">{errors.agreeTerms}</p>
-                    )}
+                    {errors.agreeTerms && <p className="mt-1 text-xs text-red-400">{errors.agreeTerms}</p>}
                   </div>
                 )}
-
                 <button
                   type="submit"
                   disabled={isLoading}
@@ -454,7 +581,6 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                   </span>
                 </button>
               </form>
-
               <div className="mt-6 text-center">
                 <p className="text-sm text-slate-400">
                   {mode === 'signup' ? 'Already have an account?' : "Don't have an account?"}{' '}
@@ -466,7 +592,6 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                   </button>
                 </p>
               </div>
-
               {mode === 'signup' && (
                 <div className="mt-6 pt-6 border-t border-white/10">
                   <div className="grid grid-cols-3 gap-4 text-center">
@@ -491,8 +616,10 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                   </div>
                 </div>
               )}
-            </div>
-          </div>
+            </>
+          )}
+        </div>
+      </div>
     </div>
   , document.body);
 };

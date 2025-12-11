@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 
 // Import komponen modular
 import Header from './components/Layout/Header';
+import SpecialOfferModal from './components/Layout/SpecialOfferModal';
 import Hero from './components/Hero/Hero';
 import Features from './components/Features/Features';
 import GameList from './components/Game/GameList';
@@ -24,6 +25,18 @@ const App = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [toast, setToast] = useState(null);
+  const [showSpecialOffer, setShowSpecialOffer] = useState(false);
+
+  // Contoh data spesial offer
+  const specialOffer = {
+    title: 'Special Year-End Offer!',
+    description: 'Dapatkan diskon hingga 50% untuk semua top up game hanya hari ini!',
+    image: 'https://images.unsplash.com/photo-1519125323398-675f0ddb6308?w=400&h=200&fit=crop',
+    cta: {
+      label: 'Lihat Penawaran',
+      link: '#games',
+    },
+  };
 
   const showToast = (message, type = 'success') => {
     setToast({ message, type });
@@ -45,6 +58,7 @@ const App = () => {
         setMenuOpen={setMenuOpen} 
         onCartClick={() => setIsCartOpen(true)}
         showToast={showToast}
+        onSpecialOfferClick={() => setShowSpecialOffer(true)}
       />
 
       {/* Main Content */}
@@ -104,6 +118,13 @@ const App = () => {
           onClose={() => setToast(null)}
         />
       )}
+
+      {/* Special Offer Modal (global, always centered) */}
+      <SpecialOfferModal 
+        isOpen={showSpecialOffer} 
+        onClose={() => setShowSpecialOffer(false)} 
+        offer={specialOffer} 
+      />
 
       {/* Floating Action Buttons */}
       <FloatingActionButtons />

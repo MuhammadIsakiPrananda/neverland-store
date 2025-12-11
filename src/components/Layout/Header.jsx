@@ -3,8 +3,10 @@ import { Menu, X, ShoppingBag, User, Bell, Sparkles, Gift, Home, Gamepad2, Layer
 import logoImage from '../../assets/Neverland Games Store.png';
 import AuthModal from '../Auth/AuthModal';
 import NotificationPopover from './NotificationPopover';
+// SpecialOfferModal is now handled globally in App.jsx
 
-const Header = ({ menuOpen, setMenuOpen, onCartClick, showToast, cartItemCount = 0 }) => {
+const Header = (props) => {
+  const { menuOpen, setMenuOpen, onCartClick, showToast, cartItemCount = 0, onSpecialOfferClick } = props;
   const [scrolled, setScrolled] = useState(false);
   const headerRef = useRef(null);
   const [notifications, setNotifications] = useState(3);
@@ -13,6 +15,31 @@ const Header = ({ menuOpen, setMenuOpen, onCartClick, showToast, cartItemCount =
   const [authMode, setAuthMode] = useState('signin');
   const [showNotifications, setShowNotifications] = useState(false);
   const notificationButtonRef = useRef(null);
+  const [user, setUser] = useState(() => {
+    try {
+      return JSON.parse(localStorage.getItem('user'));
+    } catch {
+      return null;
+    }
+  });
+  // Listen to login/logout changes
+  useEffect(() => {
+    const syncUser = () => {
+      try {
+        setUser(JSON.parse(localStorage.getItem('user')));
+      } catch {
+        setUser(null);
+      }
+    };
+    window.addEventListener('storage', syncUser);
+    return () => window.removeEventListener('storage', syncUser);
+  }, []);
+  const handleLogout = () => {
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+    setUser(null);
+    if (showToast) showToast('Berhasil logout', 'success');
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -214,7 +241,11 @@ const Header = ({ menuOpen, setMenuOpen, onCartClick, showToast, cartItemCount =
           <div className="hidden lg:flex items-center gap-3">
             <div className="flex items-center gap-1">
               {/* Promo */}
-              <button aria-label="Special Offers" className="relative p-2 rounded-lg hover:bg-white/5 transition-all group">
+              <button 
+                aria-label="Special Offers" 
+                className="relative p-2 rounded-lg hover:bg-white/5 transition-all group"
+                onClick={onSpecialOfferClick}
+              >
                 <Gift className="w-5 h-5 text-slate-400 group-hover:text-accent-gold transition-colors" />
                 <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-accent-gold rounded-full animate-pulse" />
               </button>
@@ -244,31 +275,44 @@ const Header = ({ menuOpen, setMenuOpen, onCartClick, showToast, cartItemCount =
             </div>
 
             <div className="w-px h-6 bg-white/10" />
-
-            {/* Login Button */}
-            <button 
-              onClick={() => {
-                setAuthMode('signin');
-                setShowAuthModal(true);
-              }}
-              className="px-4 py-2 rounded-lg font-medium text-sm transition-all bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white"
-            >
-              <span className="flex items-center gap-2">
-                <User className="w-4 h-4" />
-                <span>Sign In</span>
-              </span>
-            </button>
-
-            {/* Get Started Button */}
-            <button 
-              onClick={() => {
-                setAuthMode('signup');
-                setShowAuthModal(true);
-              }}
-              className="relative group px-5 py-2 rounded-lg font-semibold text-sm transition-all bg-accent-gold hover:bg-accent-gold/90 text-dark-950 shadow-lg shadow-accent-gold/20 hover:shadow-accent-gold/30"
-            >
-              Get Started
-            </button>
+            {/* Profile Dropdown jika login, else tombol Sign In/Get Started */}
+            {user ? (
+              <div className="relative group">
+                <button className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white transition-all" tabIndex={0}>
+                  <User className="w-4 h-4" />
+                  <span>{user.name || user.email}</span>
+                  <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
+                </button>
+                <div className="absolute right-0 mt-2 w-40 bg-dark-900 border border-white/10 rounded-xl shadow-lg py-2 z-50 hidden group-focus-within:block group-hover:block">
+                  <div className="px-4 py-2 text-xs text-slate-400">{user.email}</div>
+                  <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-white/5">Logout</button>
+                </div>
+              </div>
+            ) : (
+              <>
+                <button 
+                  onClick={() => {
+                    setAuthMode('signin');
+                    setShowAuthModal(true);
+                  }}
+                  className="px-4 py-2 rounded-lg font-medium text-sm transition-all bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white"
+                >
+                  <span className="flex items-center gap-2">
+                    <User className="w-4 h-4" />
+                    <span>Sign In</span>
+                  </span>
+                </button>
+                <button 
+                  onClick={() => {
+                    setAuthMode('signup');
+                    setShowAuthModal(true);
+                  }}
+                  className="relative group px-5 py-2 rounded-lg font-semibold text-sm transition-all bg-accent-gold hover:bg-accent-gold/90 text-dark-950 shadow-lg shadow-accent-gold/20 hover:shadow-accent-gold/30"
+                >
+                  Get Started
+                </button>
+              </>
+            )}
           </div>
 
           {/* Mobile Menu Button */}
@@ -356,7 +400,10 @@ const Header = ({ menuOpen, setMenuOpen, onCartClick, showToast, cartItemCount =
             {/* Actions */}
             <div className="pt-4 mt-4 border-t border-white/5 space-y-2">
               {/* Promo */}
-              <button className="w-full flex items-center justify-between px-4 py-3 bg-accent-gold/10 hover:bg-accent-gold/20 rounded-lg transition-all">
+              <button 
+                className="w-full flex items-center justify-between px-4 py-3 bg-accent-gold/10 hover:bg-accent-gold/20 rounded-lg transition-all"
+                onClick={onSpecialOfferClick}
+              >
                 <div className="flex items-center gap-3">
                   <Gift className="w-5 h-5 text-accent-gold" />
                   <span className="text-sm font-medium text-white">Special Offers</span>
@@ -390,6 +437,8 @@ const Header = ({ menuOpen, setMenuOpen, onCartClick, showToast, cartItemCount =
         initialMode={authMode}
         showToast={showToast}
       />
+
+      {/* SpecialOfferModal is now rendered globally in App.jsx */}
     </nav>
   );
 };
