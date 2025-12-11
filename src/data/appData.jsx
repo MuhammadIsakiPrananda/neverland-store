@@ -227,68 +227,104 @@ export const testimonials = [
     name: 'Ahmad Rizki',
     avatar: 'AR',
     rating: 5,
-    comment: 'Super cepat! Baru bayar langsung masuk diamonds nya. Recommended banget!',
+    comment: 'Seriously fast! I blinked and the diamonds were already in my account. Definitely my go-to store from now on.',
     game: 'Mobile Legends',
-    date: '2 days ago'
+    date: 'January 15, 2024'
   },
   {
     id: 2,
     name: 'Siti Nurhaliza',
     avatar: 'SN',
-    rating: 5,
-    comment: 'Pelayanan ramah dan harga terjangkau. Sudah langganan disini!',
+    rating: 4,
+    comment: 'Good prices and the CS was helpful. The website was a bit laggy during payment, but the top-up still arrived fast. Pretty good experience overall.',
     game: 'Genshin Impact',
-    date: '1 week ago'
+    date: 'January 12, 2024'
   },
   {
     id: 3,
     name: 'Budi Santoso',
     avatar: 'BS',
     rating: 5,
-    comment: 'Aman dan terpercaya. CS nya juga responsive banget. Top!',
+    comment: 'Was a bit worried about using a new site, but it\'s 100% legit and secure. The whole process was smooth. Top-notch service.',
     game: 'PUBG Mobile',
-    date: '3 days ago'
+    date: 'January 14, 2024'
   },
   {
     id: 4,
     name: 'Devi Anggraini',
     avatar: 'DA',
-    rating: 5,
-    comment: 'Proses cepat, harga murah, bonus nya banyak. Mantap!',
+    rating: 4,
+    comment: 'The top-up was quick and the price was decent. The bonus was a nice touch, though not as big as I hoped. Still, a reliable service I\'d use again.',
     game: 'Free Fire',
-    date: '5 days ago'
-  }
+    date: 'January 10, 2024'
+  },
+  {
+    id: 5,
+    name: 'Rian Ardiansyah',
+    avatar: 'RA',
+    rating: 5,
+    comment: 'Best place for Valorant Points, period. The transaction was seamless and I got my VP in less than a minute. Will be back for more.',
+    game: 'Valorant',
+    date: 'January 16, 2024'
+  },
+  {
+    id: 6,
+    name: 'Putri Lestari',
+    avatar: 'PL',
+    rating: 5,
+    comment: 'I was skeptical at first, but Neverland Store is the real deal. The price for Oneiric Shards is the best I\'ve found online. Very reliable.',
+    game: 'Honkai Star Rail',
+    date: 'January 13, 2024'
+  },
+  {
+    id: 7,
+    name: 'Eko Prasetyo',
+    avatar: 'EP',
+    rating: 5,
+    comment: 'Flawless. I topped up my CP in the middle of a match and it was credited before the next round even started. That\'s just amazing!',
+    game: 'Call of Duty Mobile',
+    date: 'January 9, 2024'
+  },
+  {
+    id: 8,
+    name: 'Linda Wati',
+    avatar: 'LW',
+    rating: 4,
+    comment: 'My son loves Roblox and this is the easiest way I\'ve found to get him Robux. It\'s safe and quick. A little pricey but worth the convenience. Thank you!',
+    game: 'Roblox',
+    date: 'January 8, 2024'
+  },
 ];
 
 export const faqs = [
   {
     id: 1,
-    question: 'Bagaimana cara melakukan top up?',
-    answer: 'Pilih game yang ingin di top up, pilih nominal yang diinginkan, masukkan ID game Anda, pilih metode pembayaran, dan selesaikan pembayaran. Item akan langsung masuk ke akun game Anda.'
+    question: 'How do I top up?',
+    answer: 'Select the game you want to top up, choose the desired amount, enter your game ID, select a payment method, and complete the payment. The items will be sent directly to your game account.'
   },
   {
     id: 2,
-    question: 'Berapa lama proses pengiriman?',
-    answer: 'Proses pengiriman rata-rata kurang dari 30 detik setelah pembayaran berhasil dikonfirmasi. Untuk beberapa game tertentu, maksimal 5 menit.'
+    question: 'How long does the delivery process take?',
+    answer: 'The average delivery process takes less than 30 seconds after payment is successfully confirmed. For certain games, it may take up to a maximum of 5 minutes.'
   },
   {
     id: 3,
-    question: 'Apakah aman untuk top up di sini?',
-    answer: 'Sangat aman! Kami menggunakan sistem pembayaran terenkripsi dan tidak menyimpan data sensitif Anda. Kami juga adalah partner resmi dari berbagai game publisher.'
+    question: 'Is it safe to top up here?',
+    answer: 'Absolutely safe! We use an encrypted payment system and do not store your sensitive data. We are also an official partner of various game publishers.'
   },
   {
     id: 4,
-    question: 'Bagaimana jika item tidak masuk?',
-    answer: 'Jika item tidak masuk dalam waktu 5 menit, hubungi customer service kami melalui WhatsApp atau Live Chat. Tim kami siap membantu 24/7.'
+    question: 'What if the items are not delivered?',
+    answer: 'If the items are not delivered within 5 minutes, please contact our customer service via WhatsApp or Live Chat. Our team is ready to help 24/7.'
   },
   {
     id: 5,
-    question: 'Apakah ada minimum pembelian?',
-    answer: 'Tidak ada minimum pembelian. Anda bisa membeli paket terkecil sesuai kebutuhan Anda.'
+    question: 'Is there a minimum purchase?',
+    answer: 'There is no minimum purchase. You can buy the smallest package according to your needs.'
   },
   {
     id: 6,
-    question: 'Metode pembayaran apa saja yang tersedia?',
-    answer: 'Kami menerima berbagai metode pembayaran termasuk E-Wallet (GoPay, OVO, DANA, ShopeePay), Transfer Bank (BCA, Mandiri, BNI, BRI), dan Pulsa (Telkomsel, XL, Indosat, Tri).'
+    question: 'What payment methods are available?',
+    answer: 'We accept various payment methods including E-Wallets (GoPay, OVO, DANA, ShopeePay), Bank Transfers (BCA, Mandiri, BNI, BRI), and Mobile Credit (Telkomsel, XL, Indosat, Tri).'
   }
 ];

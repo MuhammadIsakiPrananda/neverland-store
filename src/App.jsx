@@ -1,17 +1,18 @@
 import React, { useState } from 'react';
 
 // Import komponen modular
-import Header from './components/Header';
-import Hero from './components/Hero';
-import Features from './components/Features';
-import GameList from './components/GameList';
-import GameModal from './components/GameModal';
-import Testimonials from './components/Testimonials';
-import CartModal from './components/CartModal';
-import FAQ from './components/FAQ';
-import Newsletter from './components/Newsletter';
-import Footer from './components/Footer';
-import ToastNotification from './components/ToastNotification';
+import Header from './components/Layout/Header';
+import Hero from './components/Hero/Hero';
+import Features from './components/Features/Features';
+import GameList from './components/Game/GameList';
+import GameModal from './components/Game/GameModal';
+import Testimonials from './components/Testimonials/Testimonials';
+import CartModal from './components/Cart/CartModal';
+import FAQ from './components/FAQ/FAQ';
+import Newsletter from './components/Newsletter/Newsletter';
+import Footer from './components/Layout/Footer';
+import ToastNotification from './components/Layout/ToastNotification';
+import FloatingActionButtons from './components/Layout/FloatingActionButtons';
 
 // Import data dan utils
 import { games, categories, features, paymentMethods, testimonials, faqs } from './data/appData.jsx';
@@ -103,6 +104,9 @@ const App = () => {
           onClose={() => setToast(null)}
         />
       )}
+
+      {/* Floating Action Buttons */}
+      <FloatingActionButtons />
     </div>
   );
 };

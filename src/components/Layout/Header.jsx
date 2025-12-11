@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Menu, X, ShoppingBag, User, Bell, Sparkles, Gift, Home, Gamepad2, Layers, HelpCircle, Mail } from 'lucide-react';
-import logoImage from '../assets/Neverland Games Store.png';
-import AuthModal from './AuthModal';
+import logoImage from '../../assets/Neverland Games Store.png';
+import AuthModal from '../Auth/AuthModal';
 import NotificationPopover from './NotificationPopover';
 
 const Header = ({ menuOpen, setMenuOpen, onCartClick, showToast, cartItemCount = 0 }) => {

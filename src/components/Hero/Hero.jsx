@@ -1,8 +1,9 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useCallback } from 'react';
 import { TrendingUp, Zap, ArrowRight, Play, Shield, Clock, Award, Twitter, Instagram, Youtube, Twitch } from 'lucide-react';
+import heroImage from '../../assets/Neverland Games Store.png';
  
 // Komponen Floating Particles dengan animasi lebih smooth
-const FloatingParticle = ({ delay, duration, size, position }) => (
+const FloatingParticle = React.memo(({ delay, duration, size, position }) => (
   <div
     className="absolute rounded-full bg-gradient-to-r from-primary-400/30 to-accent-purple/30 blur-md animate-float"
     style={{
@@ -14,25 +15,25 @@ const FloatingParticle = ({ delay, duration, size, position }) => (
       top: position.y,
     }}
   />
-);
+));
 
 // --- Sub-komponen untuk Kerapian ---
 
-const PremiumBadge = () => (
+const PremiumBadge = React.memo(() => (
   <div className="inline-flex items-center gap-3 bg-white/5 backdrop-blur-md px-4 py-2 rounded-full border border-white/10 animate-fade-in-down">
     <Award className="w-5 h-5 text-accent-gold" />
     <span className="text-sm font-semibold text-slate-200">Trusted by 2M+ Gamers Worldwide</span>
   </div>
-);
+));
 
-const FeaturePill = ({ icon, text, color }) => (
+const FeaturePill = React.memo(({ icon, text, color }) => (
   <div className="flex items-center gap-2 bg-white/5 backdrop-blur-md px-4 py-2.5 rounded-lg border border-white/10 hover:border-white/20 transition-all hover:scale-105 cursor-pointer group">
     <div className={`bg-gradient-to-r ${color} p-1.5 rounded-md text-white`}>
       {icon}
     </div>
     <span className="text-sm font-medium text-white">{text}</span>
   </div>
-);
+));
 
 const socialLinks = [
   { icon: <Twitter size={20} />, href: '#', name: 'Twitter' },
@@ -41,7 +42,7 @@ const socialLinks = [
   { icon: <Twitch size={20} />, href: '#', name: 'Twitch' },
 ];
 
-const SocialMediaLinks = () => (
+const SocialMediaLinks = React.memo(() => (
   <div className="flex items-center justify-center lg:justify-start gap-6 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
     <span className="text-sm font-semibold text-slate-400">Follow us on:</span>
     <div className="flex items-center gap-4">
@@ -57,14 +58,20 @@ const SocialMediaLinks = () => (
       ))}
     </div>
   </div>
-);
+));
+
+const features = [
+  { icon: <Zap size={16} />, text: "Instant Delivery", color: "from-yellow-500 to-orange-500" },
+  { icon: <Shield size={16} />, text: "100% Secure", color: "from-green-500 to-emerald-500" },
+  { icon: <Clock size={16} />, text: "24/7 Support", color: "from-blue-500 to-cyan-500" },
+];
 
 const Hero = () => {
   const [imageStyle, setImageStyle] = useState({});
   const [glowStyle, setGlowStyle] = useState({});
   const containerRef = useRef(null);
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = useCallback((e) => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -85,15 +92,15 @@ const Hero = () => {
       opacity: 1,
       transition: 'opacity 0.1s ease-out',
     });
-  };
+  }, []);
 
-  const handleMouseLeave = () => {
+  const handleMouseLeave = useCallback(() => {
     setImageStyle({
       transform: 'scale(1) translateX(0) translateY(0)',
       transition: 'transform 0.5s ease-in-out',
     });
     setGlowStyle({ opacity: 0, transition: 'opacity 0.5s ease-in-out' });
-  };
+  }, []);
 
   return (
     <div className="relative pt-28 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden min-h-screen flex items-center">
@@ -131,9 +138,9 @@ const Hero = () => {
 
               {/* Feature Pills */}
               <div className="flex flex-wrap gap-3 justify-center lg:justify-start animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-                <FeaturePill icon={<Zap size={16} />} text="Instant Delivery" color="from-yellow-500 to-orange-500" />
-                <FeaturePill icon={<Shield size={16} />} text="100% Secure" color="from-green-500 to-emerald-500" />
-                <FeaturePill icon={<Clock size={16} />} text="24/7 Support" color="from-blue-500 to-cyan-500" />
+                {features.map((feature) => (
+                  <FeaturePill key={feature.text} {...feature} />
+                ))}
               </div>
 
               {/* CTA Buttons */}
@@ -169,7 +176,7 @@ const Hero = () => {
           >
             <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-accent-purple/20">
               <img 
-                  src="/src/assets/Neverland Games Store.png"
+                  src={heroImage}
                   alt="Neverland Games Store Showcase"
                   style={imageStyle}
                   className="w-full max-w-lg lg:max-w-none transition-transform duration-500 cursor-pointer"
