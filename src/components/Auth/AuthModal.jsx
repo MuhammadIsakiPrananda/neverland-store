@@ -189,7 +189,8 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
     setIsLoading(true);
     if (mode === 'signup') {
       try {
-        const res = await fetch('/api/auth/register', {
+        const apiBase = import.meta.env.PROD ? 'https://store.neverlandstudio.my.id' : '';
+        const res = await fetch(`${apiBase}/api/auth/register`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
@@ -220,7 +221,8 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
       }
     } else {
       try {
-        const res = await fetch('/api/auth/login', {
+        const apiBase = import.meta.env.PROD ? 'https://store.neverlandstudio.my.id' : '';
+        const res = await fetch(`${apiBase}/api/auth/login`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
