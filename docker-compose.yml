@@ -3,7 +3,7 @@ services:
     build:
       context: .
       dockerfile: backend/Dockerfile
-    container_name: neverland_backend
+    container_name: neverlandstore_backend
     env_file:
       - ./backend/.env
     ports:
@@ -15,7 +15,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: neverland_frontend
+    container_name: neverlandstore_frontend
     ports:
       - "8188:8081"
     depends_on:
