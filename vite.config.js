@@ -10,7 +10,7 @@ export default defineConfig(({ mode }) => {
       proxy: {
         '/api': isProd
           ? 'https://store.neverlandstudio.my.id'
-          : 'http://localhost:6000',
+          : 'http://localhost:7000',
       },
     },
     preview: {

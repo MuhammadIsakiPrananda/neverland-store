@@ -7,7 +7,7 @@ services:
     env_file:
       - ./backend/.env
     ports:
-      - "6000:6000"
+      - "7000:5000"
     networks:
       - app-network
 
