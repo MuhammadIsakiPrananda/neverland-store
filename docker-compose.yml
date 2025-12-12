@@ -7,7 +7,7 @@ services:
     env_file:
       - ./backend/.env
     ports:
-      - "7000:5000"
+      - "7100:5000"   # port baru aman
     networks:
       - app-network
 
@@ -17,7 +17,7 @@ services:
       dockerfile: Dockerfile
     container_name: neverlandstore_frontend
     ports:
-      - "8188:8081"
+      - "8288:8081"   # port baru aman
     depends_on:
       - backend
     networks:
