@@ -14,18 +14,18 @@ export default function Navbar({ onCategoryChange }) {
   };
 
   return (
-    <nav className="bg-white/10 backdrop-blur-xl sticky top-2 z-50 mx-auto w-full max-w-4xl rounded-full border border-white/20 shadow-lg shadow-black/10 my-2 px-2 outline outline-2 outline-indigo-400/60 md:outline-none">
+    <nav className="bg-slate-900/80 backdrop-blur-xl sticky top-2 z-50 mx-auto w-full max-w-4xl rounded-full border border-slate-700/50 shadow-lg shadow-sky-900/20 my-2 px-2 outline outline-2 outline-sky-500/30 md:outline-none">
       <div className="flex items-center overflow-x-auto scrollbar-hide space-x-1 p-2 sm:space-x-2 sm:p-2 md:space-x-3 md:p-3 snap-x snap-mandatory">
         {categories.map((category) => (
           <button
             key={category.id}
             onClick={() => handleCategoryClick(category.id)}
             className={`
-              flex flex-col sm:flex-row items-center justify-center space-y-0 sm:space-y-0 sm:space-x-2 px-3 py-3 sm:px-4 md:px-5 rounded-full text-base font-semibold transition-all duration-200 ease-in-out whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-indigo-400/60 active:scale-95 snap-center min-w-[48px] min-h-[48px] shadow-sm
+              flex flex-col sm:flex-row items-center justify-center space-y-0 sm:space-y-0 sm:space-x-2 px-3 py-3 sm:px-4 md:px-5 rounded-full text-base font-semibold transition-all duration-200 ease-in-out whitespace-nowrap focus:outline-none focus:ring-2 focus:ring-sky-500/50 active:scale-95 snap-center min-w-[48px] min-h-[48px] shadow-sm
               ${
                 activeCategory === category.id
-                  ? 'bg-gradient-to-r from-indigo-600 to-indigo-500 text-white shadow-lg scale-105 border border-indigo-400/40'
-                  : 'text-gray-200 hover:bg-white/10 hover:text-indigo-200 border border-transparent'
+                  ? 'bg-gradient-to-r from-sky-500 to-indigo-600 text-white shadow-lg scale-105 border border-sky-500/50'
+                  : 'text-slate-400 hover:bg-slate-800/50 hover:text-sky-400 border border-transparent'
               }
             `}
             style={{ WebkitTapHighlightColor: 'transparent' }}

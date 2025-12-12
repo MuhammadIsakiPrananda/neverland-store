@@ -6,10 +6,18 @@ services:
     container_name: neverlandstore_backend
     env_file:
       - ./backend/.env
+    environment:
+      NODE_ENV: production
+      DB_HOST: mariadb_neverland
+      DB_PORT: 3306
+      DB_NAME: neverlandstore
+      DB_USER: root
+      DB_PASSWORD: root
     ports:
-      - "7100:5000"   # port baru aman
+      - "5100:5000"
     networks:
       - app-network
+    restart: unless-stopped
 
   frontend:
     build:
@@ -17,12 +25,14 @@ services:
       dockerfile: Dockerfile
     container_name: neverlandstore_frontend
     ports:
-      - "8288:8081"   # port baru aman
+      - "8188:80"
+      - "8443:443"
     depends_on:
       - backend
     networks:
       - app-network
+    restart: unless-stopped
 
 networks:
   app-network:
-    driver: bridge
+    external: true

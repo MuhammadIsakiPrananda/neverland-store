@@ -34,7 +34,7 @@ const FloatingActionButtons = () => {
       <button
         onClick={handleLiveChatClick}
         aria-label="Live Chat"
-        className="group flex items-center w-14 hover:w-48 h-14 px-4 bg-gradient-to-r from-primary-500 to-accent-purple rounded-full shadow-lg shadow-primary-500/30 hover:shadow-xl hover:shadow-primary-500/40 transition-all duration-300 transform hover:-translate-y-1 overflow-hidden"
+        className="group flex items-center w-14 hover:w-48 h-14 px-4 bg-gradient-to-r from-sky-500 to-indigo-600 rounded-full shadow-lg shadow-sky-500/30 hover:shadow-xl hover:shadow-sky-500/40 transition-all duration-300 transform hover:-translate-y-1 overflow-hidden"
       >
         <MessageSquare className="w-6 h-6 text-white flex-shrink-0" />
         <span className="text-white font-semibold text-sm max-w-0 overflow-hidden whitespace-nowrap transition-all duration-300 group-hover:max-w-xs group-hover:ml-2 ml-0">

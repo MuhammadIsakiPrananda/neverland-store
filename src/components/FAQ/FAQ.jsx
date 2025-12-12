@@ -9,20 +9,20 @@ const FAQ = ({ faqs }) => {
   };
 
   return (
-    <div id="faq" className="py-20 px-4 sm:px-6 lg:px-8 relative bg-dark-850/30">
+    <div id="faq" className="py-20 px-4 sm:px-6 lg:px-8 relative bg-slate-950">
       {/* Background Pattern */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute w-96 h-96 bg-accent-indigo/10 rounded-full blur-3xl top-20 left-20 animate-pulse-slow" />
-        <div className="absolute w-96 h-96 bg-accent-cyan/8 rounded-full blur-3xl bottom-20 right-20 animate-pulse-slow" />
+        <div className="absolute w-96 h-96 bg-sky-500/10 rounded-full blur-3xl top-20 left-20 animate-pulse-slow" />
+        <div className="absolute w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl bottom-20 right-20 animate-pulse-slow" />
       </div>
 
       <div className="max-w-4xl mx-auto">
         <div className="text-center mb-16 animate-fade-in-up">
-          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-primary-500 to-accent-purple rounded-2xl mb-6 animate-bounce-slow">
-            <HelpCircle className="w-8 h-8 text-white" />
+          <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-sky-500/20 to-sky-500/5 border border-sky-500/20 rounded-2xl mb-6 animate-bounce-slow">
+            <HelpCircle className="w-8 h-8 text-sky-400" />
           </div>
           <h2 className="text-4xl md:text-5xl font-bold mb-4">
-            <span className="gradient-text">Frequently Asked Questions</span>
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-white via-sky-100 to-sky-200">Frequently Asked Questions</span>
           </h2>
           <p className="text-slate-400 text-lg">
             Got questions? We've got answers!
@@ -33,24 +33,24 @@ const FAQ = ({ faqs }) => {
           {faqs.map((faq, index) => (
             <div
               key={faq.id}
-              className="glass-card overflow-hidden animate-fade-in-up"
+              className="bg-slate-900/50 border border-slate-700/50 rounded-2xl overflow-hidden animate-fade-in-up hover:border-sky-500/30 transition-colors duration-300"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
               <button
                 onClick={() => toggleFAQ(index)}
-                className="w-full flex items-center justify-between p-6 text-left hover:bg-white/5 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-primary-500 rounded-lg"
+                className="w-full flex items-center justify-between p-6 text-left hover:bg-slate-800/50 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-sky-500 rounded-xl"
                 aria-expanded={openIndex === index}
                 aria-controls={`faq-content-${index}`}
               >
                 <div className="flex items-start space-x-4 flex-1">
-                  <div className="flex-shrink-0 w-8 h-8 bg-gradient-to-br from-primary-500 to-accent-purple rounded-lg flex items-center justify-center text-white font-bold text-sm">
+                  <div className="flex-shrink-0 w-8 h-8 bg-sky-500/10 border border-sky-500/20 rounded-lg flex items-center justify-center text-sky-400 font-bold text-sm">
                     {index + 1}
                   </div>
                   <h3 className="font-semibold text-white text-lg pr-8">
                     {faq.question}
                   </h3>
                 </div>
-                <div className="flex-shrink-0 text-primary-400 transition-transform duration-300" style={{
+                <div className="flex-shrink-0 text-slate-400 transition-transform duration-300" style={{
                   transform: openIndex === index ? 'rotate(180deg)' : 'rotate(0deg)'
                 }}>
                   <ChevronDown className="w-6 h-6" />
@@ -67,7 +67,7 @@ const FAQ = ({ faqs }) => {
                 }}
               >
                 <div className="px-6 pb-6">
-                  <div className="ml-12 pl-6 border-l-2 border-primary-500/30">
+                  <div className="ml-12 pl-6 border-l-2 border-sky-500/30">
                     <p className="text-slate-300 leading-relaxed">{faq.answer}</p>
                   </div>
                 </div>
@@ -77,14 +77,14 @@ const FAQ = ({ faqs }) => {
         </div>
 
         {/* Contact Support CTA */}
-        <div className="mt-12 text-center p-8 glass-card animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
+        <div className="mt-12 text-center p-8 bg-slate-900/50 border border-slate-700/50 rounded-2xl animate-fade-in-up" style={{ animationDelay: '0.6s' }}>
           <p className="text-slate-300 mb-4">
             Still have questions? Our support team is here to help!
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
             <a
               href="#contact"
-              className="btn-neon inline-flex items-center space-x-2"
+              className="inline-flex items-center space-x-2 px-8 py-3 bg-sky-500 hover:bg-sky-400 text-white rounded-xl font-semibold transition-all hover:scale-105 shadow-lg shadow-sky-500/20"
             >
               <span>Contact Support</span>
             </a>

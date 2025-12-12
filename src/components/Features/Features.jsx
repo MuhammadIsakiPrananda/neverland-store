@@ -4,14 +4,14 @@ import { ArrowRight } from 'lucide-react';
 const SectionHeader = ({ badgeText, titleLine1, titleLine2, subtitle }) => (
   <div className="text-center mb-16 animate-fade-in-up space-y-4">
     {/* Badge */}
-    <div className="inline-flex items-center gap-2 bg-white/5 backdrop-blur-md px-4 py-2 rounded-full border border-white/10">
-      <div className="w-2 h-2 bg-accent-gold rounded-full animate-pulse" />
-      <span className="text-sm font-semibold text-accent-gold">{badgeText}</span>
+    <div className="inline-flex items-center gap-2 bg-slate-800/50 backdrop-blur-md px-4 py-2 rounded-full border border-slate-700/50">
+      <div className="w-2 h-2 bg-sky-500 rounded-full animate-pulse" />
+      <span className="text-sm font-semibold text-sky-400">{badgeText}</span>
     </div>
 
     {/* Main Title */}
     <h2 className="text-4xl md:text-5xl font-black tracking-tighter">
-      <span className="bg-gradient-to-r from-accent-gold via-accent-silver to-accent-gold bg-clip-text text-transparent">
+      <span className="bg-gradient-to-r from-sky-400 via-sky-200 to-sky-400 bg-clip-text text-transparent">
         {titleLine1}
       </span>
       <br />
@@ -31,9 +31,9 @@ const FeatureCard = ({ feature, index }) => (
     style={{ animationDelay: `${index * 0.1}s` }}
   >
     {/* Card Container with refined styling */}
-    <div className="relative h-full bg-dark-900/50 backdrop-blur-md rounded-2xl overflow-hidden border border-white/10 transition-all duration-300 group-hover:border-white/20">
+    <div className="relative h-full bg-slate-900/50 backdrop-blur-md rounded-2xl overflow-hidden border border-slate-700/50 transition-all duration-300 group-hover:border-sky-500/30">
       {/* Glowing Border Effect */}
-      <div className={`absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-accent-gold/50 transition-all duration-300`} style={{ mask: 'radial-gradient(transparent, black), linear-gradient(white, white)', maskComposite: 'intersect' }} />
+      <div className={`absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-sky-500/50 transition-all duration-300`} style={{ mask: 'radial-gradient(transparent, black), linear-gradient(white, white)', maskComposite: 'intersect' }} />
       
       {/* Content */}
       <div className="relative p-8 space-y-5">
@@ -63,8 +63,8 @@ const Features = ({ features }) => {
     <div id="features" className="py-20 px-4 sm:px-6 lg:px-8 relative overflow-hidden">
       {/* Background Effects */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute top-20 right-20 w-96 h-96 bg-accent-gold/10 rounded-full blur-3xl animate-pulse-slow" />
-        <div className="absolute bottom-20 left-20 w-96 h-96 bg-accent-silver/10 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-20 right-20 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl animate-pulse-slow" />
+        <div className="absolute bottom-20 left-20 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '2s' }} />
       </div>
 
       <div className="max-w-7xl mx-auto">

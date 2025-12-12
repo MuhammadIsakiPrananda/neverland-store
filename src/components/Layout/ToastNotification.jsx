@@ -5,19 +5,19 @@ import { CheckCircle, X, AlertCircle, Info, AlertTriangle } from 'lucide-react';
 const toastConfig = {
   success: {
     Icon: <CheckCircle className="w-5 h-5 text-green-400" />,
-    style: 'bg-green-500/10 border-green-500/20',
+    style: 'bg-slate-900/95 border-green-500/30 shadow-green-500/10',
   },
   error: {
     Icon: <AlertCircle className="w-5 h-5 text-red-400" />,
-    style: 'bg-red-500/10 border-red-500/20',
+    style: 'bg-slate-900/95 border-red-500/30 shadow-red-500/10',
   },
   info: {
-    Icon: <Info className="w-5 h-5 text-blue-400" />,
-    style: 'bg-blue-500/10 border-blue-500/20',
+    Icon: <Info className="w-5 h-5 text-sky-400" />,
+    style: 'bg-slate-900/95 border-sky-500/30 shadow-sky-500/10',
   },
   warning: {
     Icon: <AlertTriangle className="w-5 h-5 text-yellow-400" />,
-    style: 'bg-yellow-500/10 border-yellow-500/20',
+    style: 'bg-slate-900/95 border-yellow-500/30 shadow-yellow-500/10',
   },
 };
 

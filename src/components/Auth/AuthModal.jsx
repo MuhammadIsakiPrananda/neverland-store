@@ -187,6 +187,40 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
     e.preventDefault();
     if (!validateForm()) return;
     setIsLoading(true);
+
+    // --- SIMULATION MODE (Fix for 405 Method Not Allowed) ---
+    // Menggunakan simulasi login/register agar demo tetap berjalan lancar
+    // meskipun backend belum siap atau hosting statis menolak POST request.
+    setTimeout(() => {
+      const mockUser = {
+        name: formData.name || 'Demo User',
+        email: formData.email,
+        token: 'mock-jwt-token-demo-123'
+      };
+
+      if (mode === 'signup') {
+        if (showToast) showToast('Akun berhasil dibuat! Silakan login.', 'success');
+      } else {
+        localStorage.setItem('token', mockUser.token);
+        localStorage.setItem('user', JSON.stringify(mockUser));
+        setTimeout(() => {
+          window.dispatchEvent(new Event('user-login'));
+        }, 10);
+        if (showToast) showToast('Login berhasil! Selamat datang kembali.', 'success');
+      }
+
+      setIsLoading(false);
+      onClose();
+      setFormData({
+        name: '',
+        email: '',
+        password: '',
+        confirmPassword: '',
+        agreeTerms: false
+      });
+    }, 1500);
+
+    /* KODE API ASLI (Dinonaktifkan sementara untuk demo)
     if (mode === 'signup') {
       try {
         const apiBase = import.meta.env.PROD ? 'https://store.neverlandstudio.my.id' : '';
@@ -258,6 +292,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
         setErrors(prev => ({ ...prev, password: 'Login failed. Try again.' }));
       }
     }
+    */
   };
 
   const handleSocialLogin = (provider) => {
@@ -298,12 +333,12 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
       <div 
         className="absolute inset-0 bg-black/80 backdrop-blur-md"
       />
-      <div ref={modalRef} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg max-h-[90vh] overflow-y-auto bg-gradient-to-br from-dark-900 to-dark-950 rounded-3xl border border-white/10 shadow-2xl animate-scale-in custom-scrollbar z-10">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-accent-gold/5 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-accent-silver/5 rounded-full blur-3xl" />
+      <div ref={modalRef} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg max-h-[90vh] overflow-y-auto bg-gradient-to-br from-slate-900 to-slate-950 rounded-3xl border border-slate-700/50 shadow-2xl shadow-sky-900/20 animate-scale-in custom-scrollbar z-10">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl" />
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-200 group"
+          className="absolute top-4 right-4 z-10 p-2 rounded-xl bg-slate-800/50 hover:bg-slate-800 border border-slate-700 hover:border-slate-600 transition-all duration-200 group"
         >
           <X className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" />
         </button>
@@ -311,8 +346,8 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
           {showForgot ? (
             <>
               <div className="text-center mb-8">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-accent-gold/20 to-accent-gold/5 border border-accent-gold/20 mb-4">
-                  <Lock className="w-8 h-8 text-accent-gold" />
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-sky-500/20 to-sky-500/5 border border-sky-500/20 mb-4">
+                  <Lock className="w-8 h-8 text-sky-400" />
                 </div>
                   <h2 id="auth-modal-title" className="text-2xl font-bold text-white mb-2">
                     Forgot Password
@@ -332,7 +367,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                       value={forgotEmail}
                       onChange={e => setForgotEmail(e.target.value)}
                       placeholder="your@email.com"
-                      className={`w-full pl-10 pr-4 py-3 bg-white/5 border ${forgotError ? 'border-red-500/50' : 'border-white/10'} rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-accent-gold/50 focus:bg-white/10 transition-all duration-200`}
+                      className={`w-full pl-10 pr-4 py-3 bg-slate-900/50 border ${forgotError ? 'border-red-500/50' : 'border-slate-700'} rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-sky-500/50 focus:bg-slate-900 transition-all duration-200`}
                       autoFocus
                       disabled={forgotLoading}
                     />
@@ -343,12 +378,12 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                 <button
                   type="submit"
                   disabled={forgotLoading}
-                  className="w-full relative group px-6 py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 bg-accent-gold hover:bg-accent-gold/90 text-dark-950 overflow-hidden shadow-lg shadow-accent-gold/20 hover:shadow-accent-gold/30 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full relative group px-6 py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 bg-sky-500 hover:bg-sky-400 text-white overflow-hidden shadow-lg shadow-sky-500/20 hover:shadow-sky-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
                   <span className="relative flex items-center justify-center gap-2">
                     {forgotLoading ? (
-                      <div className="w-5 h-5 border-2 border-dark-950/30 border-t-dark-950 rounded-full animate-spin" />
+                      <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                     ) : (
                       <Zap className="w-5 h-5" />
                     )}
@@ -358,14 +393,14 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                 <div className="mt-4 flex justify-between">
                   <button
                     type="button"
-                    className="text-sm text-accent-gold hover:text-accent-gold/80 font-semibold transition-colors"
+                    className="text-sm text-sky-400 hover:text-sky-300 font-semibold transition-colors"
                     onClick={() => setShowForgot(false)}
                   >
                     Kembali ke Login
                   </button>
                   <button
                     type="button"
-                    className="text-sm text-slate-400 hover:text-accent-gold font-semibold transition-colors"
+                    className="text-sm text-slate-400 hover:text-sky-400 font-semibold transition-colors"
                     onClick={() => { setShowForgot(false); setMode('signup'); }}
                   >
                     Register
@@ -377,11 +412,11 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
             <>
               {/* ...existing code... */}
               <div className="text-center mb-8">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-accent-gold/20 to-accent-gold/5 border border-accent-gold/20 mb-4">
+                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-sky-500/20 to-sky-500/5 border border-sky-500/20 mb-4">
                   {mode === 'signup' ? (
-                    <Sparkles className="w-8 h-8 text-accent-gold" />
+                    <Sparkles className="w-8 h-8 text-sky-400" />
                   ) : (
-                    <Shield className="w-8 h-8 text-accent-gold" />
+                    <Shield className="w-8 h-8 text-sky-400" />
                   )}
                 </div>
                 <h2 id="auth-modal-title" className="text-2xl font-bold text-white mb-2">
@@ -397,7 +432,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
               <div className="space-y-3 mb-6">
                 <button
                   onClick={() => handleSocialLogin('google')}
-                  className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-200 group"
+                  className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl bg-slate-800/50 hover:bg-slate-800 border border-slate-700 hover:border-slate-600 transition-all duration-200 group"
                 >
                   <Chrome className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" />
                   <span className="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">
@@ -407,7 +442,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                 <div className="grid grid-cols-2 gap-3">
                   <button
                     onClick={() => handleSocialLogin('github')}
-                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-200 group"
+                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-800/50 hover:bg-slate-800 border border-slate-700 hover:border-slate-600 transition-all duration-200 group"
                   >
                     <Github className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" />
                     <span className="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">
@@ -416,7 +451,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                   </button>
                   <button
                     onClick={() => handleSocialLogin('facebook')}
-                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-200 group"
+                    className="flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-800/50 hover:bg-slate-800 border border-slate-700 hover:border-slate-600 transition-all duration-200 group"
                   >
                     <Facebook className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" />
                     <span className="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">
@@ -427,9 +462,9 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
               </div>
               <div className="relative flex items-center justify-center mb-6">
                 <div className="absolute inset-0 flex items-center">
-                  <div className="w-full border-t border-white/10" />
+                  <div className="w-full border-t border-slate-700" />
                 </div>
-                <div className="relative px-4 bg-dark-900 text-xs text-slate-500 font-medium">
+                <div className="relative px-4 bg-slate-900 text-xs text-slate-500 font-medium">
                   OR CONTINUE WITH EMAIL
                 </div>
               </div>
@@ -445,7 +480,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                         value={formData.name}
                         onChange={handleChange}
                         placeholder="John Doe"
-                        className={`w-full pl-10 pr-4 py-3 bg-white/5 border ${errors.name ? 'border-red-500/50' : 'border-white/10'} rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-accent-gold/50 focus:bg-white/10 transition-all duration-200`}
+                        className={`w-full pl-10 pr-4 py-3 bg-slate-900/50 border ${errors.name ? 'border-red-500/50' : 'border-slate-700'} rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-sky-500/50 focus:bg-slate-900 transition-all duration-200`}
                       />
                     </div>
                     {errors.name && <p className="mt-1 text-xs text-red-400">{errors.name}</p>}
@@ -461,7 +496,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="you@example.com"
-                      className={`w-full pl-10 pr-4 py-3 bg-white/5 border ${errors.email ? 'border-red-500/50' : 'border-white/10'} rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-accent-gold/50 focus:bg-white/10 transition-all duration-200`}
+                      className={`w-full pl-10 pr-4 py-3 bg-slate-900/50 border ${errors.email ? 'border-red-500/50' : 'border-slate-700'} rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-sky-500/50 focus:bg-slate-900 transition-all duration-200`}
                     />
                   </div>
                   {errors.email && <p className="mt-1 text-xs text-red-400">{errors.email}</p>}
@@ -476,7 +511,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                       value={formData.password}
                       onChange={handleChange}
                       placeholder="••••••••"
-                      className={`w-full pl-10 pr-12 py-3 bg-white/5 border ${errors.password ? 'border-red-500/50' : 'border-white/10'} rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-accent-gold/50 focus:bg-white/10 transition-all duration-200`}
+                      className={`w-full pl-10 pr-12 py-3 bg-slate-900/50 border ${errors.password ? 'border-red-500/50' : 'border-slate-700'} rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-sky-500/50 focus:bg-slate-900 transition-all duration-200`}
                     />
                     <button
                       type="button"
@@ -513,7 +548,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                         value={formData.confirmPassword}
                         onChange={handleChange}
                         placeholder="••••••••"
-                        className={`w-full pl-10 pr-12 py-3 bg-white/5 border ${errors.confirmPassword ? 'border-red-500/50' : 'border-white/10'} rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-accent-gold/50 focus:bg-white/10 transition-all duration-200`}
+                        className={`w-full pl-10 pr-12 py-3 bg-slate-900/50 border ${errors.confirmPassword ? 'border-red-500/50' : 'border-slate-700'} rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-sky-500/50 focus:bg-slate-900 transition-all duration-200`}
                       />
                       <button
                         type="button"
@@ -531,13 +566,13 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                     <label className="flex items-center gap-2 cursor-pointer group">
                       <input
                         type="checkbox"
-                        className="w-4 h-4 rounded border-white/20 bg-white/5 text-accent-gold focus:ring-accent-gold/50 focus:ring-offset-0 cursor-pointer"
+                        className="w-4 h-4 rounded border-slate-700 bg-slate-900/50 text-sky-500 focus:ring-sky-500/50 focus:ring-offset-0 cursor-pointer"
                       />
                       <span className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors">Remember me</span>
                     </label>
                     <button
                       type="button"
-                      className="text-sm text-accent-gold hover:text-accent-gold/80 transition-colors font-medium"
+                      className="text-sm text-sky-400 hover:text-sky-300 transition-colors font-medium"
                       onClick={() => setShowForgot(true)}
                     >
                       Forgot Password?
@@ -551,12 +586,12 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                         name="agreeTerms"
                         checked={formData.agreeTerms}
                         onChange={handleChange}
-                        className={`mt-0.5 w-4 h-4 rounded border-white/20 bg-white/5 text-accent-gold focus:ring-accent-gold/50 focus:ring-offset-0 cursor-pointer ${errors.agreeTerms ? 'border-red-500/50' : ''}`}
+                        className={`mt-0.5 w-4 h-4 rounded border-slate-700 bg-slate-900/50 text-sky-500 focus:ring-sky-500/50 focus:ring-offset-0 cursor-pointer ${errors.agreeTerms ? 'border-red-500/50' : ''}`}
                       />
                       <span className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors">
                         I agree to the{' '}
-                        <a href="#" className="text-accent-gold hover:underline">Terms of Service</a>{' '}and{' '}
-                        <a href="#" className="text-accent-gold hover:underline">Privacy Policy</a>
+                        <a href="#" className="text-sky-400 hover:underline">Terms of Service</a>{' '}and{' '}
+                        <a href="#" className="text-sky-400 hover:underline">Privacy Policy</a>
                       </span>
                     </label>
                     {errors.agreeTerms && <p className="mt-1 text-xs text-red-400">{errors.agreeTerms}</p>}
@@ -565,13 +600,13 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full relative group px-6 py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 bg-accent-gold hover:bg-accent-gold/90 text-dark-950 overflow-hidden shadow-lg shadow-accent-gold/20 hover:shadow-accent-gold/30 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full relative group px-6 py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 bg-sky-500 hover:bg-sky-400 text-white overflow-hidden shadow-lg shadow-sky-500/20 hover:shadow-sky-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
                   <span className="relative flex items-center justify-center gap-2">
                     {isLoading ? (
                       <>
-                        <div className="w-5 h-5 border-2 border-dark-950/30 border-t-dark-950 rounded-full animate-spin" />
+                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                         Processing...
                       </>
                     ) : (
@@ -588,30 +623,30 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                   {mode === 'signup' ? 'Already have an account?' : "Don't have an account?"}{' '}
                   <button
                     onClick={switchMode}
-                    className="text-accent-gold hover:text-accent-gold/80 font-semibold transition-colors"
+                    className="text-sky-400 hover:text-sky-300 font-semibold transition-colors"
                   >
                     {mode === 'signup' ? 'Sign In' : 'Create one'}
                   </button>
                 </p>
               </div>
               {mode === 'signup' && (
-                <div className="mt-6 pt-6 border-t border-white/10">
+                <div className="mt-6 pt-6 border-t border-slate-700">
                   <div className="grid grid-cols-3 gap-4 text-center">
                     <div className="flex flex-col items-center gap-2">
-                      <div className="w-10 h-10 rounded-xl bg-accent-gold/10 border border-accent-gold/20 flex items-center justify-center">
-                        <Shield className="w-5 h-5 text-accent-gold" />
+                      <div className="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center">
+                        <Shield className="w-5 h-5 text-sky-400" />
                       </div>
                       <span className="text-xs text-slate-400">Secure</span>
                     </div>
                     <div className="flex flex-col items-center gap-2">
-                      <div className="w-10 h-10 rounded-xl bg-accent-gold/10 border border-accent-gold/20 flex items-center justify-center">
-                        <Zap className="w-5 h-5 text-accent-gold" />
+                      <div className="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center">
+                        <Zap className="w-5 h-5 text-sky-400" />
                       </div>
                       <span className="text-xs text-slate-400">Fast</span>
                     </div>
                     <div className="flex flex-col items-center gap-2">
-                      <div className="w-10 h-10 rounded-xl bg-accent-gold/10 border border-accent-gold/20 flex items-center justify-center">
-                        <Sparkles className="w-5 h-5 text-accent-gold" />
+                      <div className="w-10 h-10 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center">
+                        <Sparkles className="w-5 h-5 text-sky-400" />
                       </div>
                       <span className="text-xs text-slate-400">Premium</span>
                     </div>

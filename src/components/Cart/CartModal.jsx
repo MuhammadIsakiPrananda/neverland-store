@@ -53,20 +53,21 @@ const CartModal = ({ isOpen, onClose, cartItems = [], onUpdateQuantity, onRemove
         className="absolute inset-0 bg-black/80 backdrop-blur-md"
       />
       
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md max-h-[90vh] overflow-y-auto bg-gradient-to-br from-dark-900 to-dark-950 rounded-3xl border border-white/10 shadow-2xl animate-scale-in custom-scrollbar z-10">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-accent-purple/5 rounded-full blur-3xl" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md max-h-[90vh] overflow-y-auto bg-gradient-to-br from-slate-900 to-slate-950 rounded-3xl border border-slate-700/50 shadow-2xl shadow-sky-900/20 animate-scale-in custom-scrollbar z-10">
+        <div className="absolute top-0 right-0 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl" />
         
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 z-10 p-2 rounded-xl bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 transition-all duration-200 group"
+          className="absolute top-4 right-4 z-10 p-2 rounded-xl bg-slate-800/50 hover:bg-slate-800 border border-slate-700 hover:border-slate-600 transition-all duration-200 group"
         >
           <X className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" />
         </button>
 
         <div className="relative p-8">
           <div className="text-center mb-8">
-            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-accent-purple/20 to-accent-purple/5 border border-accent-purple/20 mb-4">
-              <ShoppingBag className="w-8 h-8 text-accent-purple" />
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-sky-500/20 to-sky-500/5 border border-sky-500/20 mb-4">
+              <ShoppingBag className="w-8 h-8 text-sky-400" />
             </div>
             <h2 id="cart-modal-title" className="text-2xl font-bold text-white mb-2">
               Shopping Cart
@@ -79,19 +80,19 @@ const CartModal = ({ isOpen, onClose, cartItems = [], onUpdateQuantity, onRemove
           {hasItems ? (
             <>
               {/* Cart Items List */}
-              <div className="space-y-4 border-y border-white/10 py-4">
+              <div className="space-y-4 border-y border-slate-700/50 py-4">
                 {cartItems.map((item) => (
                   <div key={item.id} className="flex items-center gap-4 animate-fade-in-up">
-                    <img src={item.image} alt={item.name} className="w-20 h-24 object-cover rounded-lg border border-white/10" />
+                    <img src={item.image} alt={item.name} className="w-20 h-24 object-cover rounded-lg border border-slate-700" />
                     <div className="flex-1">
                       <h3 className="font-semibold text-white text-sm">{item.name}</h3>
                       <p className="text-xs text-slate-400">{item.platform}</p>
                       <div className="flex items-center gap-2 mt-2">
-                        <button onClick={() => onUpdateQuantity(item.id, item.quantity - 1)} className="p-1 rounded-md bg-white/10 hover:bg-white/20 transition-colors">
+                        <button onClick={() => onUpdateQuantity(item.id, item.quantity - 1)} className="p-1 rounded-md bg-slate-800 hover:bg-slate-700 transition-colors">
                           {item.quantity === 1 ? <Trash2 size={14} className="text-red-400" /> : <Minus size={14} className="text-slate-300" />}
                         </button>
-                        <span className="text-sm font-medium w-6 text-center">{item.quantity}</span>
-                        <button onClick={() => onUpdateQuantity(item.id, item.quantity + 1)} className="p-1 rounded-md bg-white/10 hover:bg-white/20 transition-colors">
+                        <span className="text-sm font-medium w-6 text-center text-white">{item.quantity}</span>
+                        <button onClick={() => onUpdateQuantity(item.id, item.quantity + 1)} className="p-1 rounded-md bg-slate-800 hover:bg-slate-700 transition-colors">
                           <Plus size={14} className="text-slate-300" />
                         </button>
                       </div>
@@ -118,7 +119,7 @@ const CartModal = ({ isOpen, onClose, cartItems = [], onUpdateQuantity, onRemove
                 </p>
                 <button
                   disabled={!hasItems}
-                  className="w-full relative group px-6 py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 bg-accent-gold hover:bg-accent-gold/90 text-dark-950 overflow-hidden shadow-lg shadow-accent-gold/20 hover:shadow-accent-gold/30 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full relative group px-6 py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 bg-sky-500 hover:bg-sky-400 text-white overflow-hidden shadow-lg shadow-sky-500/20 hover:shadow-sky-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
                   <span className="relative flex items-center justify-center gap-2">
@@ -130,9 +131,9 @@ const CartModal = ({ isOpen, onClose, cartItems = [], onUpdateQuantity, onRemove
           ) : (
             <>
               {/* Empty Cart Content */}
-              <div className="text-center py-10 border-y border-white/10 flex flex-col items-center gap-4">
-                <div className="w-20 h-20 rounded-full bg-white/5 border border-white/10 flex items-center justify-center">
-                  <ShoppingBag className="w-10 h-10 text-slate-600" />
+              <div className="text-center py-10 border-y border-slate-700/50 flex flex-col items-center gap-4">
+                <div className="w-20 h-20 rounded-full bg-slate-800/50 border border-slate-700 flex items-center justify-center">
+                  <ShoppingBag className="w-10 h-10 text-slate-500" />
                 </div>
                 <h3 className="font-semibold text-slate-300">Your cart is empty</h3>
                 <p className="text-sm text-slate-500 max-w-xs">
@@ -144,7 +145,7 @@ const CartModal = ({ isOpen, onClose, cartItems = [], onUpdateQuantity, onRemove
               <div className="mt-6 pt-6">
                 <button
                   onClick={onClose}
-                  className="w-full relative group px-6 py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 bg-accent-gold hover:bg-accent-gold/90 text-dark-950 overflow-hidden shadow-lg shadow-accent-gold/20 hover:shadow-accent-gold/30"
+                  className="w-full relative group px-6 py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 bg-sky-500 hover:bg-sky-400 text-white overflow-hidden shadow-lg shadow-sky-500/20 hover:shadow-sky-500/30"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
                   <span className="relative flex items-center justify-center gap-2">

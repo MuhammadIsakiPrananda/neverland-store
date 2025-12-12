@@ -159,17 +159,17 @@ const Header = (props) => {
   return (
     <nav ref={headerRef} className={`fixed top-0 w-full z-50 transition-all duration-500 ${
       scrolled 
-        ? 'bg-dark-900/95 backdrop-blur-xl border-b border-white/10 shadow-2xl' 
-        : 'bg-dark-950/90 backdrop-blur-md'
+        ? 'bg-slate-900/95 backdrop-blur-xl border-b border-slate-700/50 shadow-2xl' 
+        : 'bg-slate-950/90 backdrop-blur-md'
     }`}>
       {/* Top Bar - Promo Banner */}
-      <div className="relative bg-gradient-to-r from-accent-gold via-accent-gold to-accent-gold/95 overflow-hidden">
+      <div className="relative bg-gradient-to-r from-sky-600 via-indigo-600 to-sky-600/95 overflow-hidden">
         <div className="absolute inset-0 opacity-10" style={{
           backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 4px)'
         }} />
         <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent animate-[shine_3s_ease-in-out_infinite]" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center h-9 text-sm font-semibold text-dark-950 relative">
+          <div className="flex items-center justify-center h-9 text-sm font-semibold text-white relative">
             <div className="flex items-center gap-2 px-3 py-1 bg-black/10 rounded-full">
               <Sparkles className="w-3.5 h-3.5 animate-pulse" />
               <span className="hidden sm:inline text-xs">New Year Sale:</span>
@@ -190,15 +190,15 @@ const Header = (props) => {
             className="flex items-center gap-3 group cursor-pointer flex-shrink-0"
           >
             <div className="relative">
-              <div className="absolute inset-0 bg-accent-gold/30 rounded-full blur-lg group-hover:blur-xl transition-all" />
+              <div className="absolute inset-0 bg-sky-500/30 rounded-full blur-lg group-hover:blur-xl transition-all" />
               <img 
                 src={logoImage} 
                 alt="Neverland Games Store" 
-                className="relative w-10 h-10 object-cover rounded-full ring-2 ring-accent-gold/50 group-hover:ring-accent-gold transition-all"
+                className="relative w-10 h-10 object-cover rounded-full ring-2 ring-sky-500/50 group-hover:ring-sky-500 transition-all"
               />
             </div>
             <div className="hidden sm:flex flex-col">
-              <span className="text-lg font-bold text-white group-hover:text-accent-gold transition-colors">
+              <span className="text-lg font-bold text-white group-hover:text-sky-400 transition-colors">
                 Neverland Store
               </span>
               <span className="text-[10px] text-slate-500 font-medium tracking-wider uppercase">Premium Gaming</span>
@@ -219,18 +219,18 @@ const Header = (props) => {
                     relative flex items-center gap-2 px-4 py-2 rounded-lg
                     font-medium text-sm transition-all duration-200
                     ${isActive 
-                      ? 'text-white bg-white/10' 
-                      : 'text-slate-400 hover:text-white hover:bg-white/5'
+                      ? 'text-white bg-slate-800/50' 
+                      : 'text-slate-400 hover:text-white hover:bg-slate-800/50'
                     }
                   `}
                 >
                   <item.icon className={`w-4 h-4 transition-colors ${
-                    isActive ? 'text-accent-gold' : ''
+                    isActive ? 'text-sky-400' : ''
                   }`} />
                   <span>{item.label}</span>
                   
                   {isActive && (
-                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-0.5 bg-accent-gold rounded-full" />
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-0.5 bg-sky-500 rounded-full" />
                   )}
                 </a>
               );
@@ -243,28 +243,28 @@ const Header = (props) => {
               {/* Promo */}
               <button 
                 aria-label="Special Offers" 
-                className="relative p-2 rounded-lg hover:bg-white/5 transition-all group"
+                className="relative p-2 rounded-lg hover:bg-slate-800/50 transition-all group"
                 onClick={onSpecialOfferClick}
               >
-                <Gift className="w-5 h-5 text-slate-400 group-hover:text-accent-gold transition-colors" />
-                <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-accent-gold rounded-full animate-pulse" />
+                <Gift className="w-5 h-5 text-slate-400 group-hover:text-sky-400 transition-colors" />
+                <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-sky-500 rounded-full animate-pulse" />
               </button>
               
               {/* Cart & Notifications */}
               <div className="flex items-center gap-2">
-                <button onClick={onCartClick} aria-label={`Shopping Cart (${cartItemCount} items)`} className="relative p-2 rounded-lg hover:bg-white/5 transition-all group">
-                  <ShoppingBag className="w-5 h-5 text-slate-400 group-hover:text-accent-gold transition-colors" />
+                <button onClick={onCartClick} aria-label={`Shopping Cart (${cartItemCount} items)`} className="relative p-2 rounded-lg hover:bg-slate-800/50 transition-all group">
+                  <ShoppingBag className="w-5 h-5 text-slate-400 group-hover:text-sky-400 transition-colors" />
                   {cartItemCount > 0 && (
-                    <span className="absolute -top-1 -right-1 min-w-[16px] h-[16px] bg-accent-gold rounded-full text-[9px] flex items-center justify-center text-dark-950 font-bold">
+                    <span className="absolute -top-1 -right-1 min-w-[16px] h-[16px] bg-sky-500 rounded-full text-[9px] flex items-center justify-center text-white font-bold">
                       {cartItemCount}
                     </span>
                   )}
                 </button>
                 <div className="relative">
-                  <button ref={notificationButtonRef} onClick={() => setShowNotifications(!showNotifications)} aria-label={`Notifications (${notifications} new)`} className="relative p-2 rounded-lg hover:bg-white/5 transition-all group">
-                    <Bell className="w-5 h-5 text-slate-400 group-hover:text-accent-gold transition-colors" />
+                  <button ref={notificationButtonRef} onClick={() => setShowNotifications(!showNotifications)} aria-label={`Notifications (${notifications} new)`} className="relative p-2 rounded-lg hover:bg-slate-800/50 transition-all group">
+                    <Bell className="w-5 h-5 text-slate-400 group-hover:text-sky-400 transition-colors" />
                     {notifications > 0 && (
-                      <span className="absolute -top-1 -right-1 min-w-[16px] h-[16px] bg-accent-gold rounded-full text-[10px] flex items-center justify-center text-dark-950 font-bold animate-pulse">
+                      <span className="absolute -top-1 -right-1 min-w-[16px] h-[16px] bg-sky-500 rounded-full text-[10px] flex items-center justify-center text-white font-bold animate-pulse">
                         {notifications}
                       </span>
                     )}
@@ -274,18 +274,18 @@ const Header = (props) => {
               </div>
             </div>
 
-            <div className="w-px h-6 bg-white/10" />
+            <div className="w-px h-6 bg-slate-700/50" />
             {/* Profile Dropdown jika login, else tombol Sign In/Get Started */}
             {user ? (
               <div className="relative group">
-                <button className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white transition-all" tabIndex={0}>
+                <button className="flex items-center gap-2 px-4 py-2 rounded-lg font-medium text-sm bg-slate-800/50 hover:bg-slate-800 border border-slate-700/50 hover:border-slate-600 text-white transition-all" tabIndex={0}>
                   <User className="w-4 h-4" />
                   <span>{user.name || user.email}</span>
                   <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" /></svg>
                 </button>
-                <div className="absolute right-0 mt-2 w-40 bg-dark-900 border border-white/10 rounded-xl shadow-lg py-2 z-50 hidden group-focus-within:block group-hover:block">
+                <div className="absolute right-0 mt-2 w-40 bg-slate-900 border border-slate-700/50 rounded-xl shadow-lg py-2 z-50 hidden group-focus-within:block group-hover:block">
                   <div className="px-4 py-2 text-xs text-slate-400">{user.email}</div>
-                  <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-white/5">Logout</button>
+                  <button onClick={handleLogout} className="w-full text-left px-4 py-2 text-sm text-red-400 hover:bg-slate-800/50">Logout</button>
                 </div>
               </div>
             ) : (
@@ -295,7 +295,7 @@ const Header = (props) => {
                     setAuthMode('signin');
                     setShowAuthModal(true);
                   }}
-                  className="px-4 py-2 rounded-lg font-medium text-sm transition-all bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/20 text-white"
+                  className="px-4 py-2 rounded-lg font-medium text-sm transition-all bg-slate-800/50 hover:bg-slate-800 border border-slate-700/50 hover:border-slate-600 text-white"
                 >
                   <span className="flex items-center gap-2">
                     <User className="w-4 h-4" />
@@ -307,7 +307,7 @@ const Header = (props) => {
                     setAuthMode('signup');
                     setShowAuthModal(true);
                   }}
-                  className="relative group px-5 py-2 rounded-lg font-semibold text-sm transition-all bg-accent-gold hover:bg-accent-gold/90 text-dark-950 shadow-lg shadow-accent-gold/20 hover:shadow-accent-gold/30"
+                  className="relative group px-5 py-2 rounded-lg font-semibold text-sm transition-all bg-sky-500 hover:bg-sky-400 text-white shadow-lg shadow-sky-500/20 hover:shadow-sky-500/30"
                 >
                   Get Started
                 </button>
@@ -318,10 +318,10 @@ const Header = (props) => {
           {/* Mobile Menu Button */}
           <div className="flex lg:hidden items-center gap-2">
             {/* Mobile Cart */}
-            <button onClick={onCartClick} aria-label={`Shopping Cart (${cartItemCount} items)`} className="relative p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all">
+            <button onClick={onCartClick} aria-label={`Shopping Cart (${cartItemCount} items)`} className="relative p-2 rounded-lg bg-slate-800/50 hover:bg-slate-800 transition-all">
               <ShoppingBag className="w-5 h-5 text-slate-400" />
               {cartItemCount > 0 && (
-                <span className="absolute -top-1 -right-1 min-w-[16px] h-4 bg-accent-gold rounded-full text-[9px] flex items-center justify-center text-dark-950 font-bold">
+                <span className="absolute -top-1 -right-1 min-w-[16px] h-4 bg-sky-500 rounded-full text-[9px] flex items-center justify-center text-white font-bold">
                   {cartItemCount}
                 </span>
               )}
@@ -331,11 +331,11 @@ const Header = (props) => {
             <button
               onClick={() => setShowNotifications((v) => !v)}
               aria-label={`Notifications (${notifications} new)`}
-              className="relative p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all"
+              className="relative p-2 rounded-lg bg-slate-800/50 hover:bg-slate-800 transition-all"
             >
               <Bell className="w-5 h-5 text-slate-400" />
               {notifications > 0 && (
-                <span className="absolute -top-1 -right-1 min-w-[16px] h-4 bg-accent-gold rounded-full text-[9px] flex items-center justify-center text-dark-950 font-bold animate-pulse">
+                <span className="absolute -top-1 -right-1 min-w-[16px] h-4 bg-sky-500 rounded-full text-[9px] flex items-center justify-center text-white font-bold animate-pulse">
                   {notifications}
                 </span>
               )}
@@ -346,7 +346,7 @@ const Header = (props) => {
               aria-label="Toggle menu"
               aria-expanded={menuOpen}
               aria-controls="mobile-menu"
-              className="p-2 rounded-lg bg-white/5 hover:bg-white/10 transition-all"
+              className="p-2 rounded-lg bg-slate-800/50 hover:bg-slate-800 transition-all"
               onClick={() => setMenuOpen(!menuOpen)}
             >
               {menuOpen ? (
@@ -361,7 +361,7 @@ const Header = (props) => {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div id="mobile-menu" className="lg:hidden bg-dark-900/98 backdrop-blur-xl border-t border-white/5">
+        <div id="mobile-menu" className="lg:hidden bg-slate-900/98 backdrop-blur-xl border-t border-slate-700/50">
           <div className="px-4 py-6 space-y-2 max-h-[calc(100vh-120px)] overflow-y-auto custom-scrollbar">
             {/* Menu Items */}
             {menuItems.map((item, index) => {
@@ -376,14 +376,14 @@ const Header = (props) => {
                     flex items-center justify-between px-4 py-3 rounded-lg
                     transition-all animate-fade-in-up
                     ${isActive
-                      ? 'bg-white/10 text-white'
-                      : 'bg-white/5 text-slate-400 hover:text-white hover:bg-white/10'
+                      ? 'bg-slate-800/50 text-white'
+                      : 'bg-slate-800/30 text-slate-400 hover:text-white hover:bg-slate-800/50'
                     }
                   `}
                 >
                   <div className="flex items-center gap-3">
                     <item.icon className={`w-5 h-5 ${
-                      isActive ? 'text-accent-gold' : 'text-slate-500'
+                      isActive ? 'text-sky-400' : 'text-slate-500'
                     }`} />
                     <div className="flex flex-col items-start">
                       <span className="font-medium text-sm">{item.label}</span>
@@ -391,24 +391,24 @@ const Header = (props) => {
                     </div>
                   </div>
                   {isActive && (
-                    <div className="w-2 h-2 rounded-full bg-accent-gold" />
+                    <div className="w-2 h-2 rounded-full bg-sky-500" />
                   )}
                 </a>
               );
             })}
             
             {/* Actions */}
-            <div className="pt-4 mt-4 border-t border-white/5 space-y-2">
+            <div className="pt-4 mt-4 border-t border-slate-700/50 space-y-2">
               {/* Promo */}
               <button 
-                className="w-full flex items-center justify-between px-4 py-3 bg-accent-gold/10 hover:bg-accent-gold/20 rounded-lg transition-all"
+                className="w-full flex items-center justify-between px-4 py-3 bg-sky-500/10 hover:bg-sky-500/20 rounded-lg transition-all"
                 onClick={onSpecialOfferClick}
               >
                 <div className="flex items-center gap-3">
-                  <Gift className="w-5 h-5 text-accent-gold" />
+                  <Gift className="w-5 h-5 text-sky-400" />
                   <span className="text-sm font-medium text-white">Special Offers</span>
                 </div>
-                <div className="w-2 h-2 rounded-full bg-accent-gold animate-pulse" />
+                <div className="w-2 h-2 rounded-full bg-sky-500 animate-pulse" />
               </button>
 
               {/* Login */}
@@ -418,7 +418,7 @@ const Header = (props) => {
                   setShowAuthModal(true);
                   setMenuOpen(false);
                 }}
-                className="w-full px-6 py-3 rounded-lg font-semibold transition-all bg-accent-gold hover:bg-accent-gold/90 text-dark-950 shadow-lg shadow-accent-gold/20"
+                className="w-full px-6 py-3 rounded-lg font-semibold transition-all bg-sky-500 hover:bg-sky-400 text-white shadow-lg shadow-sky-500/20"
               >
                 <span className="flex items-center justify-center gap-2">
                   <User className="w-5 h-5" />
