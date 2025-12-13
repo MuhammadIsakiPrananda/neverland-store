@@ -26,7 +26,7 @@ const NotificationPopover = ({ isOpen, onClose, triggerRef }) => {
 
   if (!isOpen) return null;
 
-  return (
+  return ( 
     <div ref={popoverRef} className="absolute top-full right-0 mt-3 w-80 bg-slate-900/95 backdrop-blur-xl border border-slate-700/50 rounded-2xl shadow-2xl shadow-sky-900/20 animate-fade-in-down z-50">
       <div className="p-4 border-b border-slate-700/50 flex items-center justify-between">
         <h3 className="font-bold text-white">Notifications</h3>
@@ -36,7 +36,7 @@ const NotificationPopover = ({ isOpen, onClose, triggerRef }) => {
           <div className="w-16 h-16 bg-slate-800/50 border border-slate-700/50 rounded-full flex items-center justify-center mx-auto mb-4">
             <Shield className="w-8 h-8 text-slate-500" />
           </div>
-          <p className="text-sm text-slate-400">Tidak ada notifikasi</p>
+          <p className="text-sm text-slate-400">Tidak ada notifikasi</p> 
           <p className="text-xs text-slate-500 mt-1">Semua notifikasi akan muncul di sini</p>
         </div>
       </div>

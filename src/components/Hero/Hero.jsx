@@ -5,7 +5,7 @@ import heroImage from '../../assets/Neverland Games Store.png';
 // Komponen Floating Particles dengan animasi lebih smooth
 const FloatingParticle = React.memo(({ delay, duration, size, position }) => (
   <div
-    className="absolute rounded-full bg-gradient-to-r from-sky-400/30 to-indigo-500/30 blur-md animate-float"
+    className="absolute rounded-full bg-gradient-to-r from-indigo-400/30 to-sky-500/30 blur-md animate-float"
     style={{
       width: `${size}px`,
       height: `${size}px`,
@@ -20,14 +20,14 @@ const FloatingParticle = React.memo(({ delay, duration, size, position }) => (
 // --- Sub-komponen untuk Kerapian ---
 
 const PremiumBadge = React.memo(() => (
-  <div className="inline-flex items-center gap-3 bg-slate-800/50 backdrop-blur-md px-4 py-2 rounded-full border border-slate-700/50 animate-fade-in-down">
-    <Award className="w-5 h-5 text-sky-400" />
+  <div className="inline-flex items-center gap-3 bg-slate-900/70 backdrop-blur-md px-4 py-2 rounded-full border border-indigo-500/30 animate-fade-in-down">
+    <Award className="w-5 h-5 text-indigo-400" />
     <span className="text-sm font-semibold text-slate-200">Trusted by 2M+ Gamers Worldwide</span>
   </div>
 ));
 
 const FeaturePill = React.memo(({ icon, text, color }) => (
-  <div className="flex items-center gap-2 bg-slate-800/50 backdrop-blur-md px-4 py-2.5 rounded-lg border border-slate-700/50 hover:border-sky-500/30 transition-all hover:scale-105 cursor-pointer group">
+  <div className="flex items-center gap-2 bg-slate-900/70 backdrop-blur-md px-4 py-2.5 rounded-lg border border-slate-700/50 hover:border-indigo-500/30 transition-all hover:scale-105 cursor-pointer group">
     <div className={`bg-gradient-to-r ${color} p-1.5 rounded-md text-white`}>
       {icon}
     </div>
@@ -111,8 +111,8 @@ const Hero = () => {
         <FloatingParticle delay={1} duration={20} size={80} position={{ top: '50%', left: '20%' }} />
         <FloatingParticle delay={2} duration={18} size={40} position={{ top: '20%', left: '80%' }} />
         <FloatingParticle delay={3} duration={22} size={70} position={{ top: '80%', left: '60%' }} />
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-sky-500/10 rounded-full blur-3xl animate-pulse-slow" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '2s' }} />
+        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-sky-900/10 rounded-full blur-3xl animate-pulse-slow" />
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-indigo-900/10 rounded-full blur-3xl animate-pulse-slow" style={{ animationDelay: '2s' }} />
       </div>
 
       <div className="max-w-7xl mx-auto relative z-10">
@@ -125,7 +125,7 @@ const Hero = () => {
 
               {/* Main Heading */}
               <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black leading-tight tracking-tighter animate-fade-in-up">
-                <span className="bg-gradient-to-r from-sky-400 via-sky-200 to-sky-400 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-indigo-400 via-sky-200 to-indigo-400 bg-clip-text text-transparent">
                   Level Up Your <br /> Gaming
                 </span>{' '}
                 <span className="text-white">Experience</span>
@@ -145,7 +145,7 @@ const Hero = () => {
 
               {/* CTA Buttons */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-                <a href="#games" className="group bg-sky-500 hover:bg-sky-400 px-8 py-4 rounded-lg font-bold transition-all duration-300 hover:scale-105 shadow-lg shadow-sky-500/20 hover:shadow-sky-500/40">
+                <a href="#games" className="group bg-gradient-to-r from-indigo-600 to-sky-600 hover:from-indigo-500 hover:to-sky-500 px-8 py-4 rounded-lg font-bold transition-all duration-300 hover:scale-105 shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/40">
                   <span className="flex items-center justify-center gap-2 text-white">
                     <Play size={20} fill="currentColor" />
                     <span>Browse Games</span>
@@ -154,7 +154,7 @@ const Hero = () => {
                 </a>
                 <a 
                   href="#features" 
-                  className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-slate-800/50 backdrop-blur-md hover:bg-slate-800 rounded-lg font-bold transition-all hover:scale-105 border border-slate-700/50 hover:border-slate-600 text-white"
+                  className="group inline-flex items-center justify-center gap-2 px-8 py-4 bg-slate-900/70 backdrop-blur-md hover:bg-slate-800 rounded-lg font-bold transition-all hover:scale-105 border border-slate-700/50 hover:border-slate-600 text-white"
                 >
                   <span>How It Works</span>
                   <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
@@ -174,7 +174,7 @@ const Hero = () => {
             className="relative group animate-fade-in-up lg:mt-0 mt-16 hidden md:block" 
             style={{ animationDelay: '0.4s' }}
           >
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-sky-900/20">
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-indigo-900/20">
               <img 
                   src={heroImage}
                   alt="Neverland Games Store Showcase"
@@ -186,7 +186,7 @@ const Hero = () => {
             </div>
             {/* Decorative elements */}
             <div className="absolute -top-8 -right-8 w-24 h-24 bg-gradient-to-br from-indigo-500/20 to-transparent rounded-full blur-xl -z-10"></div>
-            <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-gradient-to-br from-sky-500/10 to-transparent rounded-full blur-xl -z-10"></div>
+            <div className="absolute -bottom-8 -left-8 w-32 h-32 bg-gradient-to-br from-sky-900/10 to-transparent rounded-full blur-xl -z-10"></div>
           </div>
         </div>
       </div>
@@ -196,7 +196,7 @@ const Hero = () => {
         <div className="flex flex-col items-center gap-2 text-slate-500">
           <span className="text-xs font-medium">Scroll to explore</span>
           <div className="w-6 h-9 border-2 border-slate-700 rounded-full flex items-start justify-center p-1.5">
-            <div className="w-1 h-2 bg-sky-500 rounded-full animate-pulse" />
+            <div className="w-1 h-2 bg-indigo-500 rounded-full animate-pulse" />
           </div>
         </div>
       </div>

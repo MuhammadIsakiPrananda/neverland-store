@@ -54,8 +54,8 @@ const CartModal = ({ isOpen, onClose, cartItems = [], onUpdateQuantity, onRemove
       />
       
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-md max-h-[90vh] overflow-y-auto bg-gradient-to-br from-slate-900 to-slate-950 rounded-3xl border border-slate-700/50 shadow-2xl shadow-sky-900/20 animate-scale-in custom-scrollbar z-10">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl" />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-purple-700/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-900/10 rounded-full blur-3xl" />
         
         <button
           onClick={onClose}
@@ -67,7 +67,7 @@ const CartModal = ({ isOpen, onClose, cartItems = [], onUpdateQuantity, onRemove
         <div className="relative p-8">
           <div className="text-center mb-8">
             <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-sky-500/20 to-sky-500/5 border border-sky-500/20 mb-4">
-              <ShoppingBag className="w-8 h-8 text-sky-400" />
+              <ShoppingBag className="w-8 h-8 text-purple-400" />
             </div>
             <h2 id="cart-modal-title" className="text-2xl font-bold text-white mb-2">
               Shopping Cart
@@ -119,7 +119,7 @@ const CartModal = ({ isOpen, onClose, cartItems = [], onUpdateQuantity, onRemove
                 </p>
                 <button
                   disabled={!hasItems}
-                  className="w-full relative group px-6 py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 bg-sky-500 hover:bg-sky-400 text-white overflow-hidden shadow-lg shadow-sky-500/20 hover:shadow-sky-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full relative group px-6 py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 bg-gradient-to-br from-purple-600 to-blue-500 hover:from-purple-500 hover:to-blue-400 text-white overflow-hidden shadow-lg shadow-purple-500/20 hover:shadow-purple-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
                   <span className="relative flex items-center justify-center gap-2">
@@ -145,7 +145,7 @@ const CartModal = ({ isOpen, onClose, cartItems = [], onUpdateQuantity, onRemove
               <div className="mt-6 pt-6">
                 <button
                   onClick={onClose}
-                  className="w-full relative group px-6 py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 bg-sky-500 hover:bg-sky-400 text-white overflow-hidden shadow-lg shadow-sky-500/20 hover:shadow-sky-500/30"
+                  className="w-full relative group px-6 py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 bg-gradient-to-br from-purple-600 to-blue-500 hover:from-purple-500 hover:to-blue-400 text-white overflow-hidden shadow-lg shadow-purple-500/20 hover:shadow-purple-500/30"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
                   <span className="relative flex items-center justify-center gap-2">

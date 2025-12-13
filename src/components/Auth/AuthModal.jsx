@@ -334,8 +334,8 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
         className="absolute inset-0 bg-black/80 backdrop-blur-md"
       />
       <div ref={modalRef} className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-lg max-h-[90vh] overflow-y-auto bg-gradient-to-br from-slate-900 to-slate-950 rounded-3xl border border-slate-700/50 shadow-2xl shadow-sky-900/20 animate-scale-in custom-scrollbar z-10">
-        <div className="absolute top-0 right-0 w-64 h-64 bg-sky-500/10 rounded-full blur-3xl" />
-        <div className="absolute bottom-0 left-0 w-64 h-64 bg-indigo-500/10 rounded-full blur-3xl" />
+        <div className="absolute top-0 right-0 w-64 h-64 bg-purple-700/10 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 left-0 w-64 h-64 bg-blue-900/10 rounded-full blur-3xl" />
         <button
           onClick={onClose}
           className="absolute top-4 right-4 z-10 p-2 rounded-xl bg-slate-800/50 hover:bg-slate-800 border border-slate-700 hover:border-slate-600 transition-all duration-200 group"
@@ -347,12 +347,12 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
             <>
               <div className="text-center mb-8">
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-sky-500/20 to-sky-500/5 border border-sky-500/20 mb-4">
-                  <Lock className="w-8 h-8 text-sky-400" />
+                  <Lock className="w-8 h-8 text-purple-400" />
                 </div>
                   <h2 id="auth-modal-title" className="text-2xl font-bold text-white mb-2">
                     Forgot Password
                   </h2>
-                  <p className="text-sm text-slate-400">
+                  <p className="text-sm text-gray-400">
                     Enter your Neverland Store account email. We will send a password reset link to your email.
                   </p>
               </div>
@@ -369,7 +369,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                       placeholder="your@email.com"
                       className={`w-full pl-10 pr-4 py-3 bg-slate-900/50 border ${forgotError ? 'border-red-500/50' : 'border-slate-700'} rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-sky-500/50 focus:bg-slate-900 transition-all duration-200`}
                       autoFocus
-                      disabled={forgotLoading}
+                      disabled={forgotLoading} 
                     />
                   </div>
                   {forgotError && <p className="mt-1 text-xs text-red-400">{forgotError}</p>}
@@ -378,14 +378,14 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                 <button
                   type="submit"
                   disabled={forgotLoading}
-                  className="w-full relative group px-6 py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 bg-sky-500 hover:bg-sky-400 text-white overflow-hidden shadow-lg shadow-sky-500/20 hover:shadow-sky-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full relative group px-6 py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 bg-gradient-to-br from-purple-600 to-blue-500 hover:from-purple-500 hover:to-blue-400 text-white overflow-hidden shadow-lg shadow-purple-500/20 hover:shadow-purple-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
                   <span className="relative flex items-center justify-center gap-2">
                     {forgotLoading ? (
                       <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
                     ) : (
-                      <Zap className="w-5 h-5" />
+                      <Zap className="w-5 h-5 text-white" />
                     )}
                     Kirim Link Reset
                   </span>
@@ -393,13 +393,13 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                 <div className="mt-4 flex justify-between">
                   <button
                     type="button"
-                    className="text-sm text-sky-400 hover:text-sky-300 font-semibold transition-colors"
+                    className="text-sm text-purple-400 hover:text-purple-300 font-semibold transition-colors"
                     onClick={() => setShowForgot(false)}
                   >
                     Kembali ke Login
                   </button>
                   <button
-                    type="button"
+                    type="button" 
                     className="text-sm text-slate-400 hover:text-sky-400 font-semibold transition-colors"
                     onClick={() => { setShowForgot(false); setMode('signup'); }}
                   >
@@ -413,16 +413,16 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
               {/* ...existing code... */}
               <div className="text-center mb-8">
                 <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-sky-500/20 to-sky-500/5 border border-sky-500/20 mb-4">
-                  {mode === 'signup' ? (
-                    <Sparkles className="w-8 h-8 text-sky-400" />
+                  {mode === 'signup' ? ( 
+                    <Sparkles className="w-8 h-8 text-purple-400" />
                   ) : (
-                    <Shield className="w-8 h-8 text-sky-400" />
+                    <Shield className="w-8 h-8 text-purple-400" />
                   )}
                 </div>
                 <h2 id="auth-modal-title" className="text-2xl font-bold text-white mb-2">
                   {mode === 'signup' ? 'Create Account' : 'Welcome Back'}
                 </h2>
-                <p className="text-sm text-slate-400">
+                <p className="text-sm text-gray-400">
                   {mode === 'signup' 
                     ? 'Join Neverland Store and start your gaming journey' 
                     : 'Sign in to access your account and continue shopping'
@@ -433,12 +433,12 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                 <button
                   onClick={() => handleSocialLogin('google')}
                   className="w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl bg-slate-800/50 hover:bg-slate-800 border border-slate-700 hover:border-slate-600 transition-all duration-200 group"
-                >
+                > 
                   <Chrome className="w-5 h-5 text-slate-400 group-hover:text-white transition-colors" />
-                  <span className="text-sm font-medium text-slate-300 group-hover:text-white transition-colors">
+                  <span className="text-sm font-medium text-gray-300 group-hover:text-white transition-colors">
                     Continue with Google
                   </span>
-                </button>
+                </button> 
                 <div className="grid grid-cols-2 gap-3">
                   <button
                     onClick={() => handleSocialLogin('github')}
@@ -514,7 +514,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                       className={`w-full pl-10 pr-12 py-3 bg-slate-900/50 border ${errors.password ? 'border-red-500/50' : 'border-slate-700'} rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-sky-500/50 focus:bg-slate-900 transition-all duration-200`}
                     />
                     <button
-                      type="button"
+                      type="button" 
                       onClick={() => setShowPassword(!showPassword)}
                       className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-500 hover:text-slate-300 transition-colors"
                     >
@@ -571,7 +571,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                       <span className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors">Remember me</span>
                     </label>
                     <button
-                      type="button"
+                      type="button" 
                       className="text-sm text-sky-400 hover:text-sky-300 transition-colors font-medium"
                       onClick={() => setShowForgot(true)}
                     >
@@ -600,14 +600,14 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full relative group px-6 py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 bg-sky-500 hover:bg-sky-400 text-white overflow-hidden shadow-lg shadow-sky-500/20 hover:shadow-sky-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full relative group px-6 py-3.5 rounded-xl font-semibold text-sm transition-all duration-200 bg-gradient-to-br from-purple-600 to-blue-500 hover:from-purple-500 hover:to-blue-400 text-white overflow-hidden shadow-lg shadow-purple-500/20 hover:shadow-purple-500/30 disabled:opacity-50 disabled:cursor-not-allowed"
                 >
                   <div className="absolute inset-0 bg-gradient-to-r from-white/0 via-white/20 to-white/0 -translate-x-full group-hover:translate-x-full transition-transform duration-500" />
                   <span className="relative flex items-center justify-center gap-2">
                     {isLoading ? (
                       <>
                         <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
-                        Processing...
+                        Processing... 
                       </>
                     ) : (
                       <>
@@ -620,7 +620,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
               </form>
               <div className="mt-6 text-center">
                 <p className="text-sm text-slate-400">
-                  {mode === 'signup' ? 'Already have an account?' : "Don't have an account?"}{' '}
+                  {mode === 'signup' ? 'Already have an account?' : "Don't have an account?"}
                   <button
                     onClick={switchMode}
                     className="text-sky-400 hover:text-sky-300 font-semibold transition-colors"
@@ -659,6 +659,7 @@ const AuthModal = ({ isOpen, onClose, initialMode = 'signin', showToast }) => {
       </div>
     </div>
   , document.body);
+
 };
 
 export default AuthModal;

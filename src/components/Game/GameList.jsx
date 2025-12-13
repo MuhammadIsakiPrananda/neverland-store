@@ -5,14 +5,14 @@ import { Star, Users, TrendingUp, Sparkles, Filter, ChevronDown } from 'lucide-r
 
 const SectionHeader = () => (
   <div className="text-center mb-12 animate-fade-in-up">
-    <div className="inline-flex items-center gap-2 bg-slate-800/50 backdrop-blur-md px-4 py-2 rounded-full border border-slate-700/50 mb-4">
-      <div className="w-2 h-2 bg-sky-500 rounded-full animate-pulse" />
-      <span className="text-sm font-semibold text-sky-400">Game Store</span>
+    <div className="inline-flex items-center gap-2 bg-slate-900/70 backdrop-blur-md px-4 py-2 rounded-full border border-indigo-500/30 mb-4">
+      <div className="w-2 h-2 bg-indigo-500 rounded-full animate-pulse" />
+      <span className="text-sm font-semibold text-indigo-400">Game Store</span>
     </div>
     <h2 className="text-4xl md:text-5xl font-black tracking-tighter">
       <span className="text-white">Browse Our</span>
       <br />
-      <span className="bg-gradient-to-r from-sky-400 via-sky-200 to-sky-400 bg-clip-text text-transparent">
+      <span className="bg-gradient-to-r from-indigo-400 via-sky-200 to-indigo-400 bg-clip-text text-transparent">
         Popular Games
       </span>
     </h2>
@@ -54,7 +54,7 @@ const SortByDropdown = ({ sortBy, setSortBy }) => {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center justify-between w-44 px-4 py-2 bg-slate-800/50 border border-slate-700 rounded-lg text-white text-sm focus:outline-none focus:border-sky-500/50 transition-colors"
+        className="flex items-center justify-between w-44 px-4 py-2 bg-slate-900/70 border border-slate-700 rounded-lg text-white text-sm focus:outline-none focus:border-indigo-500/50 transition-colors"
       >
         <span>{sortOptions[sortBy]}</span>
         <ChevronDown className={`w-4 h-4 text-slate-400 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
@@ -68,7 +68,7 @@ const SortByDropdown = ({ sortBy, setSortBy }) => {
               onClick={() => handleSelect(key)}
               className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
                 sortBy === key
-                  ? 'bg-sky-500/10 text-sky-400 font-semibold'
+                  ? 'bg-indigo-500/10 text-indigo-400 font-semibold'
                   : 'text-slate-300 hover:bg-slate-800'
               }`}
             >
@@ -85,7 +85,7 @@ const FilterControls = ({ categories, selectedCategory, setSelectedCategory, sor
   <div className="relative z-20 mb-10 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
     <div className="flex flex-col md:flex-row items-center justify-between gap-4 mb-6">
       <h3 className="text-lg font-semibold flex items-center gap-2 text-white">
-        <Filter className="w-5 h-5 text-sky-400" />
+        <Filter className="w-5 h-5 text-indigo-400" />
         <span>Filter by Category</span>
       </h3>
       <div className="flex items-center gap-4">
@@ -101,8 +101,8 @@ const FilterControls = ({ categories, selectedCategory, setSelectedCategory, sor
           onClick={() => setSelectedCategory(category.id)}
           className={`px-4 py-2.5 rounded-lg font-medium text-sm transition-all flex items-center gap-2.5 border ${
             selectedCategory === category.id
-              ? 'bg-sky-500 text-white shadow-lg shadow-sky-500/20 border-transparent'
-              : 'bg-slate-800/50 text-slate-300 hover:bg-slate-800 border-slate-700'
+              ? 'bg-indigo-600 text-white shadow-lg shadow-indigo-500/20 border-transparent'
+              : 'bg-slate-900/70 text-slate-300 hover:bg-slate-800 border-slate-700'
           }`}
         >
           <span>{category.icon}</span>
@@ -116,11 +116,11 @@ const FilterControls = ({ categories, selectedCategory, setSelectedCategory, sor
 const GameCard = ({ game, onGameSelect, index }) => (
   <div
     onClick={() => onGameSelect(game)}
-    className="group relative bg-slate-900/50 backdrop-blur-md rounded-2xl overflow-hidden border border-slate-700/50 cursor-pointer transition-all duration-300 hover:border-sky-500/50 hover:-translate-y-2 animate-fade-in-up"
+    className="group relative bg-slate-900/70 backdrop-blur-md rounded-2xl overflow-hidden border border-slate-700/50 cursor-pointer transition-all duration-300 hover:border-indigo-500/50 hover:-translate-y-2 animate-fade-in-up"
     style={{ animationDelay: `${index * 0.05}s` }}
   >
     {/* Glowing Border Effect */}
-    <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-sky-500/30 transition-all duration-300" style={{ mask: 'radial-gradient(transparent, black), linear-gradient(white, white)', maskComposite: 'intersect' }} />
+    <div className="absolute inset-0 rounded-2xl border-2 border-transparent group-hover:border-indigo-500/30 transition-all duration-300" style={{ mask: 'radial-gradient(transparent, black), linear-gradient(white, white)', maskComposite: 'intersect' }} />
 
     {/* Image Container */}
     <div className="relative w-full h-48 overflow-hidden">
@@ -150,7 +150,7 @@ const GameCard = ({ game, onGameSelect, index }) => (
 
     {/* Content */}
     <div className="p-5">
-      <h3 className="text-xl font-bold text-white mb-2 truncate group-hover:text-sky-400 transition-colors">
+      <h3 className="text-xl font-bold text-white mb-2 truncate group-hover:text-indigo-400 transition-colors">
         {game.name}
       </h3>
       <p className="text-sm text-slate-400 mb-4 line-clamp-2 h-10">
@@ -208,11 +208,11 @@ const GameList = ({ games, onGameSelect, categories }) => {
   }
 
   return (
-    <div id="games" className="py-20 px-4 sm:px-6 lg:px-8 relative">
+    <div id="games" className="py-20 px-4 sm:px-6 lg:px-8 relative bg-slate-950">
       {/* Background Effects */}
       <div className="absolute inset-0 -z-10">
-        <div className="absolute w-96 h-96 bg-sky-500/10 rounded-full blur-3xl top-20 right-20 animate-pulse-slow" />
-        <div className="absolute w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl bottom-20 left-20 animate-pulse-slow" />
+        <div className="absolute w-96 h-96 bg-sky-900/10 rounded-full blur-3xl top-20 right-20 animate-pulse-slow" />
+        <div className="absolute w-96 h-96 bg-indigo-900/10 rounded-full blur-3xl bottom-20 left-20 animate-pulse-slow" />
       </div>
 
       <div className="max-w-7xl mx-auto">

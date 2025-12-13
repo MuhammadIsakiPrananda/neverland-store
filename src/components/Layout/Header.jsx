@@ -163,7 +163,7 @@ const Header = (props) => {
         : 'bg-slate-950/90 backdrop-blur-md'
     }`}>
       {/* Top Bar - Promo Banner */}
-      <div className="relative bg-gradient-to-r from-sky-600 via-indigo-600 to-sky-600/95 overflow-hidden">
+      <div className="relative bg-gradient-to-r from-indigo-900 via-slate-900 to-indigo-900 overflow-hidden">
         <div className="absolute inset-0 opacity-10" style={{
           backgroundImage: 'repeating-linear-gradient(90deg, transparent, transparent 2px, rgba(255,255,255,0.1) 2px, rgba(255,255,255,0.1) 4px)'
         }} />
@@ -190,15 +190,15 @@ const Header = (props) => {
             className="flex items-center gap-3 group cursor-pointer flex-shrink-0"
           >
             <div className="relative">
-              <div className="absolute inset-0 bg-sky-500/30 rounded-full blur-lg group-hover:blur-xl transition-all" />
+              <div className="absolute inset-0 bg-indigo-500/30 rounded-full blur-lg group-hover:blur-xl transition-all" />
               <img 
                 src={logoImage} 
                 alt="Neverland Games Store" 
-                className="relative w-10 h-10 object-cover rounded-full ring-2 ring-sky-500/50 group-hover:ring-sky-500 transition-all"
+                className="relative w-10 h-10 object-cover rounded-full ring-2 ring-indigo-500/50 group-hover:ring-indigo-500 transition-all"
               />
             </div>
             <div className="hidden sm:flex flex-col">
-              <span className="text-lg font-bold text-white group-hover:text-sky-400 transition-colors">
+              <span className="text-lg font-bold text-white group-hover:text-indigo-400 transition-colors">
                 Neverland Store
               </span>
               <span className="text-[10px] text-slate-500 font-medium tracking-wider uppercase">Premium Gaming</span>
@@ -225,12 +225,12 @@ const Header = (props) => {
                   `}
                 >
                   <item.icon className={`w-4 h-4 transition-colors ${
-                    isActive ? 'text-sky-400' : ''
+                    isActive ? 'text-indigo-400' : ''
                   }`} />
                   <span>{item.label}</span>
                   
                   {isActive && (
-                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-0.5 bg-sky-500 rounded-full" />
+                    <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1/2 h-0.5 bg-indigo-500 rounded-full" />
                   )}
                 </a>
               );
@@ -246,25 +246,25 @@ const Header = (props) => {
                 className="relative p-2 rounded-lg hover:bg-slate-800/50 transition-all group"
                 onClick={onSpecialOfferClick}
               >
-                <Gift className="w-5 h-5 text-slate-400 group-hover:text-sky-400 transition-colors" />
-                <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-sky-500 rounded-full animate-pulse" />
+                <Gift className="w-5 h-5 text-slate-400 group-hover:text-indigo-400 transition-colors" />
+                <div className="absolute -top-0.5 -right-0.5 w-2 h-2 bg-indigo-500 rounded-full animate-pulse" />
               </button>
               
               {/* Cart & Notifications */}
               <div className="flex items-center gap-2">
                 <button onClick={onCartClick} aria-label={`Shopping Cart (${cartItemCount} items)`} className="relative p-2 rounded-lg hover:bg-slate-800/50 transition-all group">
-                  <ShoppingBag className="w-5 h-5 text-slate-400 group-hover:text-sky-400 transition-colors" />
+                  <ShoppingBag className="w-5 h-5 text-slate-400 group-hover:text-indigo-400 transition-colors" />
                   {cartItemCount > 0 && (
-                    <span className="absolute -top-1 -right-1 min-w-[16px] h-[16px] bg-sky-500 rounded-full text-[9px] flex items-center justify-center text-white font-bold">
+                    <span className="absolute -top-1 -right-1 min-w-[16px] h-[16px] bg-indigo-500 rounded-full text-[9px] flex items-center justify-center text-white font-bold">
                       {cartItemCount}
                     </span>
                   )}
                 </button>
                 <div className="relative">
                   <button ref={notificationButtonRef} onClick={() => setShowNotifications(!showNotifications)} aria-label={`Notifications (${notifications} new)`} className="relative p-2 rounded-lg hover:bg-slate-800/50 transition-all group">
-                    <Bell className="w-5 h-5 text-slate-400 group-hover:text-sky-400 transition-colors" />
+                    <Bell className="w-5 h-5 text-slate-400 group-hover:text-indigo-400 transition-colors" />
                     {notifications > 0 && (
-                      <span className="absolute -top-1 -right-1 min-w-[16px] h-[16px] bg-sky-500 rounded-full text-[10px] flex items-center justify-center text-white font-bold animate-pulse">
+                      <span className="absolute -top-1 -right-1 min-w-[16px] h-[16px] bg-indigo-500 rounded-full text-[10px] flex items-center justify-center text-white font-bold animate-pulse">
                         {notifications}
                       </span>
                     )}
@@ -307,7 +307,7 @@ const Header = (props) => {
                     setAuthMode('signup');
                     setShowAuthModal(true);
                   }}
-                  className="relative group px-5 py-2 rounded-lg font-semibold text-sm transition-all bg-sky-500 hover:bg-sky-400 text-white shadow-lg shadow-sky-500/20 hover:shadow-sky-500/30"
+                  className="relative group px-5 py-2 rounded-lg font-semibold text-sm transition-all bg-gradient-to-r from-indigo-600 to-sky-600 hover:from-indigo-500 hover:to-sky-500 text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30"
                 >
                   Get Started
                 </button>
@@ -321,7 +321,7 @@ const Header = (props) => {
             <button onClick={onCartClick} aria-label={`Shopping Cart (${cartItemCount} items)`} className="relative p-2 rounded-lg bg-slate-800/50 hover:bg-slate-800 transition-all">
               <ShoppingBag className="w-5 h-5 text-slate-400" />
               {cartItemCount > 0 && (
-                <span className="absolute -top-1 -right-1 min-w-[16px] h-4 bg-sky-500 rounded-full text-[9px] flex items-center justify-center text-white font-bold">
+                <span className="absolute -top-1 -right-1 min-w-[16px] h-4 bg-indigo-500 rounded-full text-[9px] flex items-center justify-center text-white font-bold">
                   {cartItemCount}
                 </span>
               )}
@@ -335,7 +335,7 @@ const Header = (props) => {
             >
               <Bell className="w-5 h-5 text-slate-400" />
               {notifications > 0 && (
-                <span className="absolute -top-1 -right-1 min-w-[16px] h-4 bg-sky-500 rounded-full text-[9px] flex items-center justify-center text-white font-bold animate-pulse">
+                <span className="absolute -top-1 -right-1 min-w-[16px] h-4 bg-indigo-500 rounded-full text-[9px] flex items-center justify-center text-white font-bold animate-pulse">
                   {notifications}
                 </span>
               )}
@@ -383,7 +383,7 @@ const Header = (props) => {
                 >
                   <div className="flex items-center gap-3">
                     <item.icon className={`w-5 h-5 ${
-                      isActive ? 'text-sky-400' : 'text-slate-500'
+                      isActive ? 'text-indigo-400' : 'text-slate-500'
                     }`} />
                     <div className="flex flex-col items-start">
                       <span className="font-medium text-sm">{item.label}</span>
@@ -391,7 +391,7 @@ const Header = (props) => {
                     </div>
                   </div>
                   {isActive && (
-                    <div className="w-2 h-2 rounded-full bg-sky-500" />
+                    <div className="w-2 h-2 rounded-full bg-indigo-500" />
                   )}
                 </a>
               );
@@ -401,14 +401,14 @@ const Header = (props) => {
             <div className="pt-4 mt-4 border-t border-slate-700/50 space-y-2">
               {/* Promo */}
               <button 
-                className="w-full flex items-center justify-between px-4 py-3 bg-sky-500/10 hover:bg-sky-500/20 rounded-lg transition-all"
+                className="w-full flex items-center justify-between px-4 py-3 bg-indigo-500/10 hover:bg-indigo-500/20 rounded-lg transition-all"
                 onClick={onSpecialOfferClick}
               >
                 <div className="flex items-center gap-3">
-                  <Gift className="w-5 h-5 text-sky-400" />
+                  <Gift className="w-5 h-5 text-indigo-400" />
                   <span className="text-sm font-medium text-white">Special Offers</span>
                 </div>
-                <div className="w-2 h-2 rounded-full bg-sky-500 animate-pulse" />
+                <div className="w-2 h-2 rounded-full bg-indigo-500 animate-pulse" />
               </button>
 
               {/* Login */}
@@ -418,7 +418,7 @@ const Header = (props) => {
                   setShowAuthModal(true);
                   setMenuOpen(false);
                 }}
-                className="w-full px-6 py-3 rounded-lg font-semibold transition-all bg-sky-500 hover:bg-sky-400 text-white shadow-lg shadow-sky-500/20"
+                className="w-full px-6 py-3 rounded-lg font-semibold transition-all bg-gradient-to-r from-indigo-600 to-sky-600 hover:from-indigo-500 hover:to-sky-500 text-white shadow-lg shadow-indigo-500/20"
               >
                 <span className="flex items-center justify-center gap-2">
                   <User className="w-5 h-5" />

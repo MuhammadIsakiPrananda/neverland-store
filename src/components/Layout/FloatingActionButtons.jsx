@@ -34,7 +34,7 @@ const FloatingActionButtons = () => {
       <button
         onClick={handleLiveChatClick}
         aria-label="Live Chat"
-        className="group flex items-center w-14 hover:w-48 h-14 px-4 bg-gradient-to-r from-sky-500 to-indigo-600 rounded-full shadow-lg shadow-sky-500/30 hover:shadow-xl hover:shadow-sky-500/40 transition-all duration-300 transform hover:-translate-y-1 overflow-hidden"
+        className="group flex items-center w-14 hover:w-48 h-14 px-4 bg-gradient-to-r from-indigo-600 to-sky-600 rounded-full shadow-lg shadow-indigo-500/30 hover:shadow-xl hover:shadow-indigo-500/40 transition-all duration-300 transform hover:-translate-y-1 overflow-hidden"
       >
         <MessageSquare className="w-6 h-6 text-white flex-shrink-0" />
         <span className="text-white font-semibold text-sm max-w-0 overflow-hidden whitespace-nowrap transition-all duration-300 group-hover:max-w-xs group-hover:ml-2 ml-0">
@@ -48,7 +48,7 @@ const FloatingActionButtons = () => {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"
-        className="group flex items-center w-14 hover:w-48 h-14 px-4 bg-gradient-to-r from-green-500 to-emerald-600 rounded-full shadow-lg shadow-green-500/30 hover:shadow-xl hover:shadow-green-500/40 transition-all duration-300 transform hover:-translate-y-1 overflow-hidden"
+        className="group flex items-center w-14 hover:w-48 h-14 px-4 bg-gradient-to-r from-emerald-600 to-green-500 rounded-full shadow-lg shadow-emerald-500/30 hover:shadow-xl hover:shadow-emerald-500/40 transition-all duration-300 transform hover:-translate-y-1 overflow-hidden"
       >
         <Phone className="w-6 h-6 text-white flex-shrink-0" />
         <span className="text-white font-semibold text-sm max-w-0 overflow-hidden whitespace-nowrap transition-all duration-300 group-hover:max-w-xs group-hover:ml-2 ml-0">

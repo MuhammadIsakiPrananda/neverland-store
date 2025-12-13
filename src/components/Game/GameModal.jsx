@@ -4,8 +4,8 @@ import { X, ChevronRight, ChevronLeft, Check, Gift, Shield, Zap, Info, User, Pac
 // --- Sub-komponen untuk setiap langkah ---
 
 const Step1 = ({ userId, setUserId, serverId, setServerId }) => (
-  <div className="max-w-2xl mx-auto animate-fade-in-up">
-    <h3 className="text-2xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white via-sky-100 to-sky-200">Enter Your Game ID</h3>
+  <div className="max-w-2xl mx-auto animate-fade-in-up ">
+    <h3 className="text-2xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white via-indigo-200 to-sky-200">Enter Your Game ID</h3>
     <p className="text-slate-400 mb-6">Please enter your user ID and server ID (if applicable)</p>
     
     <div className="space-y-4">
@@ -18,7 +18,7 @@ const Step1 = ({ userId, setUserId, serverId, setServerId }) => (
           value={userId}
           onChange={(e) => setUserId(e.target.value)}
           placeholder="Enter your User ID"
-          className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition-all"
+          className="w-full px-4 py-3 bg-slate-900/70 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
         />
       </div>
       <div>
@@ -30,13 +30,13 @@ const Step1 = ({ userId, setUserId, serverId, setServerId }) => (
           value={serverId}
           onChange={(e) => setServerId(e.target.value)}
           placeholder="Enter your Server ID (if applicable)"
-          className="w-full px-4 py-3 bg-slate-900/50 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition-all"
+          className="w-full px-4 py-3 bg-slate-900/70 border border-slate-700 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition-all"
         />
       </div>
       <div className="flex items-start space-x-2 bg-slate-800/50 border border-slate-700/50 p-4 rounded-xl">
-        <Info className="w-5 h-5 text-sky-400 flex-shrink-0 mt-0.5" />
+        <Info className="w-5 h-5 text-indigo-400 flex-shrink-0 mt-0.5" />
         <p className="text-sm text-slate-300">
-          You can find your User ID in the game profile section. Make sure to enter the correct ID to avoid issues.
+          You can find your User ID in the game profile section. Make sure to enter the correct ID to avoid issues or <a href="#" className="text-sky-400 hover:underline">contact support.</a>
         </p>
       </div>
     </div>
@@ -45,7 +45,7 @@ const Step1 = ({ userId, setUserId, serverId, setServerId }) => (
 
 const Step2 = ({ game, selectedPackage, setSelectedPackage, formatPrice }) => (
   <div className="animate-fade-in-up">
-    <h3 className="text-2xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white via-sky-100 to-sky-200 text-center">Choose Your Package</h3>
+    <h3 className="text-2xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white via-indigo-200 to-sky-200 text-center">Choose Your Package</h3>
     <p className="text-slate-400 mb-6 text-center">Select the diamond/currency package you want</p>
     
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -53,10 +53,10 @@ const Step2 = ({ game, selectedPackage, setSelectedPackage, formatPrice }) => (
         <div
           key={pkg.id}
           onClick={() => setSelectedPackage(pkg)}
-          className={`relative bg-slate-800/50 border border-slate-700/50 p-5 rounded-xl cursor-pointer transition-all duration-300 ${
+          className={`relative bg-slate-900/70 border border-slate-700/50 p-5 rounded-xl cursor-pointer transition-all duration-300 ${
             selectedPackage?.id === pkg.id
-              ? 'border-2 border-sky-500 ring-4 ring-sky-500/20 shadow-lg shadow-sky-500/50'
-              : 'border border-slate-700 hover:border-sky-500/50'
+              ? 'border-2 border-indigo-500 ring-4 ring-indigo-500/20 shadow-lg shadow-indigo-500/50'
+              : 'border border-slate-700 hover:border-indigo-500/50'
           }`}
         >
           {pkg.popular && (
@@ -74,11 +74,11 @@ const Step2 = ({ game, selectedPackage, setSelectedPackage, formatPrice }) => (
                 <span>+{pkg.bonus} Bonus</span>
               </div>
             )}
-            <div className="text-sky-400 font-bold text-xl">{formatPrice(pkg.price)}</div>
+            <div className="text-indigo-400 font-bold text-xl">{formatPrice(pkg.price)}</div>
           </div>
           
           {selectedPackage?.id === pkg.id && (
-            <div className="absolute top-3 left-3 bg-sky-500 rounded-full p-1">
+            <div className="absolute top-3 left-3 bg-indigo-500 rounded-full p-1">
               <Check className="w-4 h-4 text-white" />
             </div>
           )}
@@ -87,7 +87,7 @@ const Step2 = ({ game, selectedPackage, setSelectedPackage, formatPrice }) => (
     </div>
 
     {/* Features */}
-    <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4">
+    <div className="mt-6 grid grid-cols-1 md:grid-cols-3 gap-4 ">
       <div className="bg-slate-800/50 border border-slate-700/50 p-4 rounded-xl flex items-center space-x-3">
         <Zap className="w-8 h-8 text-yellow-400" />
         <div>
@@ -109,13 +109,13 @@ const Step2 = ({ game, selectedPackage, setSelectedPackage, formatPrice }) => (
           <div className="text-xs text-slate-400">Extra currency</div>
         </div>
       </div>
-    </div>
+    </div >
   </div>
 );
 
 const Step3 = ({ paymentMethods, selectedPayment, setSelectedPayment }) => (
   <div className="animate-fade-in-up">
-    <h3 className="text-2xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white via-sky-100 to-sky-200 text-center">Select Payment Method</h3>
+    <h3 className="text-2xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white via-indigo-200 to-sky-200 text-center">Select Payment Method</h3>
     <p className="text-slate-400 mb-6 text-center">Choose your preferred payment option</p>
     
     <div className="space-y-4 max-w-3xl mx-auto">
@@ -134,8 +134,8 @@ const Step3 = ({ paymentMethods, selectedPayment, setSelectedPayment }) => (
                 onClick={() => setSelectedPayment(`${method.name}-${m}`)}
                 className={`px-4 py-3 rounded-lg text-sm font-medium transition-all duration-300 ${
                   selectedPayment === `${method.name}-${m}`
-                    ? 'bg-gradient-to-r from-sky-600 to-indigo-600 text-white shadow-lg'
-                    : 'bg-slate-900/50 text-slate-300 hover:bg-slate-800 border border-slate-700'
+                    ? 'bg-gradient-to-r from-indigo-600 to-sky-600 text-white shadow-lg'
+                    : 'bg-slate-900/70 text-slate-300 hover:bg-slate-800 border border-slate-700'
                 }`}
               >
                 {m}
@@ -207,11 +207,11 @@ const GameModal = ({ game, onClose, paymentMethods, formatPrice }) => {
 
   return (
     <div className="fixed inset-0 bg-black/90 backdrop-blur-md z-50 flex items-center justify-center p-4 animate-fade-in custom-scrollbar">
-      <div className="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-700/50 rounded-3xl max-w-5xl w-full max-h-[90vh] shadow-2xl shadow-sky-900/20 flex flex-col">
+      <div className="bg-gradient-to-br from-slate-900 to-slate-950 border border-slate-700/50 rounded-3xl max-w-5xl w-full max-h-[90vh] shadow-2xl shadow-indigo-900/20 flex flex-col">
         {/* Header */}
         <div className="relative h-48 w-full overflow-hidden flex-shrink-0">
           <img src={game.image} alt={`${game.name} banner`} className="absolute inset-0 w-full h-full object-cover" />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/70 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-transparent" />
           <button
             onClick={onClose}
             className="absolute top-4 right-4 z-10 text-slate-200 bg-black/50 hover:bg-black/70 p-2 rounded-full transition-all"
@@ -222,7 +222,7 @@ const GameModal = ({ game, onClose, paymentMethods, formatPrice }) => {
             <h2 className="text-3xl font-bold text-white drop-shadow-lg">{game.name}</h2>
             <p className="text-slate-300 text-sm drop-shadow-md">{game.description}</p>
             <div className="flex items-center space-x-3 mt-2">
-              <span className="text-xs bg-sky-500/20 text-sky-300 px-2 py-0.5 rounded-full font-medium">
+              <span className="text-xs bg-indigo-500/20 text-indigo-300 px-2 py-0.5 rounded-full font-medium">
                 {game.category}
               </span>
               <div className="flex items-center gap-1 text-yellow-400">
@@ -242,8 +242,8 @@ const GameModal = ({ game, onClose, paymentMethods, formatPrice }) => {
                   <div
                     className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg transition-all duration-300 ${
                       step >= s.num
-                        ? 'bg-gradient-to-br from-sky-500 to-indigo-500 text-white shadow-lg shadow-sky-500/50'
-                        : 'bg-slate-900 text-slate-500 border border-slate-700'
+                        ? 'bg-gradient-to-br from-indigo-500 to-sky-500 text-white shadow-lg shadow-indigo-500/50'
+                        : 'bg-slate-900/70 text-slate-500 border border-slate-700'
                     }`}
                   >
                     {step > s.num ? <Check className="w-6 h-6" /> : <s.Icon className="w-6 h-6" />}
@@ -251,14 +251,14 @@ const GameModal = ({ game, onClose, paymentMethods, formatPrice }) => {
                   <span
                     className={`text-xs mt-2 font-medium ${
                       step >= s.num ? 'text-sky-400' : 'text-slate-500'
-                    }`}
+                      }`}
                   >
                     {s.label}
                   </span>
                 </div>
                 {idx < 3 && (
                   <div
-                    className={`flex-1 h-1 mx-2 rounded-full transition-all duration-300 ${
+                    className={`flex-1 h-1 mx-2 rounded-full transition-all duration-300 bg-slate-700/70 ${
                       step > s.num ? 'bg-gradient-to-r from-sky-500 to-indigo-500' : 'bg-slate-700'
                     }`}
                   />
@@ -291,8 +291,8 @@ const GameModal = ({ game, onClose, paymentMethods, formatPrice }) => {
                 disabled={!canProceed()}
                 className={`ml-auto flex items-center space-x-2 px-8 py-3 rounded-xl font-semibold transition-all ${
                   canProceed()
-                    ? 'bg-sky-500 hover:bg-sky-400 text-white shadow-lg shadow-sky-500/20 hover:shadow-sky-500/30'
-                    : 'bg-slate-700 text-slate-400 cursor-not-allowed'
+                    ? 'bg-gradient-to-r from-indigo-500 to-sky-500 hover:from-indigo-400 hover:to-sky-400 text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30'
+                    : 'bg-slate-700/70 text-slate-400 cursor-not-allowed'
                 }`}
               >
                 <span>Next Step</span>
@@ -303,7 +303,7 @@ const GameModal = ({ game, onClose, paymentMethods, formatPrice }) => {
                 disabled={!agreeTerms}
                 className={`ml-auto px-8 py-3 rounded-xl font-semibold flex items-center space-x-2 transition-all ${
                   agreeTerms
-                    ? 'bg-sky-500 hover:bg-sky-400 text-white shadow-lg shadow-sky-500/20 hover:shadow-sky-500/30'
+                    ? 'bg-gradient-to-r from-indigo-500 to-sky-500 hover:from-indigo-400 hover:to-sky-400 text-white shadow-lg shadow-indigo-500/20 hover:shadow-indigo-500/30'
                     : 'bg-slate-700 text-slate-400 cursor-not-allowed'
                 }`}
               >
@@ -320,7 +320,7 @@ const GameModal = ({ game, onClose, paymentMethods, formatPrice }) => {
 
 const Step4Summary = ({ game, userId, serverId, selectedPackage, selectedPayment, formatPrice, agreeTerms, setAgreeTerms }) => (
   <div className="max-w-2xl mx-auto animate-fade-in-up">
-    <h3 className="text-2xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white via-sky-100 to-sky-200 text-center">Order Summary</h3>
+    <h3 className="text-2xl font-bold mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white via-indigo-200 to-sky-200 text-center">Order Summary</h3>
     <p className="text-slate-400 mb-6 text-center">Please review your order before proceeding</p>
     
     <div className="space-y-4">
@@ -361,7 +361,7 @@ const Step4Summary = ({ game, userId, serverId, selectedPackage, selectedPayment
           <div className="border-t border-slate-700 pt-3 mt-3">
             <div className="flex justify-between items-center">
               <span className="text-lg font-semibold text-white">Total Payment</span>
-              <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-sky-100 to-sky-200">
+              <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-white via-indigo-200 to-sky-200">
                 {formatPrice(selectedPackage?.price)}
               </span>
             </div>
@@ -375,7 +375,7 @@ const Step4Summary = ({ game, userId, serverId, selectedPackage, selectedPayment
           <Shield className="w-6 h-6 text-green-400 flex-shrink-0 mt-0.5" />
           <div>
             <p className="font-semibold text-white mb-1">Secure Transaction</p>
-            <p className="text-sm text-slate-300">Your payment is protected. Items will be delivered instantly after payment confirmation.</p>
+            <p className="text-sm text-slate-400">Your payment is protected. Items will be delivered instantly after payment confirmation.</p>
           </div>
         </div>
         <div className="border-t border-slate-700/50 pt-4">
@@ -384,7 +384,7 @@ const Step4Summary = ({ game, userId, serverId, selectedPackage, selectedPayment
               type="checkbox"
               checked={agreeTerms}
               onChange={(e) => setAgreeTerms(e.target.checked)}
-              className="mt-0.5 w-4 h-4 rounded border-slate-700 bg-slate-900/50 text-sky-500 focus:ring-sky-500/50 focus:ring-offset-slate-900 cursor-pointer"
+              className="mt-0.5 w-4 h-4 rounded border-slate-700 bg-slate-900/50 text-indigo-500 focus:ring-indigo-500/50 focus:ring-offset-slate-900 cursor-pointer"
             />
             <span className="text-sm text-slate-400 group-hover:text-slate-300 transition-colors">
               I agree to the <a href="#" className="text-sky-400 hover:underline">Terms of Service</a> and confirm that the User ID is correct.

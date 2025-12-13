@@ -20,15 +20,15 @@ const SpecialOfferModal = ({ isOpen, onClose, offers = [] }) => {
         </button>
 
         {/* Decorative Gradient Top */}
-        <div className="absolute -top-16 -left-16 w-48 h-48 bg-gradient-to-br from-sky-500/20 via-indigo-500/20 to-transparent rounded-full blur-2xl opacity-70 pointer-events-none" />
+        <div className="absolute -top-16 -left-16 w-48 h-48 bg-gradient-to-br from-indigo-500/20 via-sky-500/20 to-transparent rounded-full blur-2xl opacity-70 pointer-events-none" />
 
         {/* Content */}
         <div className="relative flex flex-col items-center px-6 pt-10 pb-8 sm:px-10">
           {/* Icon & Title */}
-          <div className="mb-2 flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-sky-500 via-indigo-500 to-sky-500/80 shadow-lg shadow-sky-500/20 animate-bounce-slow">
+          <div className="mb-2 flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-indigo-500 via-sky-500 to-indigo-500/80 shadow-lg shadow-indigo-500/20 animate-bounce-slow">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="w-10 h-10 text-white"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12v7a2 2 0 01-2 2H6a2 2 0 01-2-2v-7m16-2V7a2 2 0 00-2-2h-2.586a1 1 0 01-.707-.293l-1.414-1.414a1 1 0 00-.707-.293h-2.172a1 1 0 00-.707.293L8.293 4.707A1 1 0 017.586 5H5a2 2 0 00-2 2v3m16 0H4" /></svg>
           </div>
-          <h2 className="text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-white via-sky-100 to-sky-200 text-center drop-shadow mb-6 tracking-tight">
+          <h2 className="text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-white via-indigo-200 to-sky-200 text-center drop-shadow mb-6 tracking-tight">
             Promo & Kupon Spesial
           </h2>
           {/* Promo List */}
@@ -37,13 +37,13 @@ const SpecialOfferModal = ({ isOpen, onClose, offers = [] }) => {
               <div className="col-span-2 text-center text-slate-400 py-8">Belum ada promo aktif saat ini.</div>
             )}
             {offers.map((promo, idx) => (
-              <div key={idx} className="relative flex flex-col bg-slate-800/50 border border-slate-700/50 rounded-xl shadow-lg p-5 group hover:scale-[1.03] hover:shadow-sky-900/20 transition-all hover:border-sky-500/30">
+              <div key={idx} className="relative flex flex-col bg-slate-900/70 border border-slate-700/50 rounded-xl shadow-lg p-5 group hover:scale-[1.03] hover:shadow-indigo-900/20 transition-all hover:border-indigo-500/30">
                 {/* Promo Image */}
                 {promo.image && (
                   <img src={promo.image} alt={promo.title} className="w-full h-28 object-cover object-center rounded-lg mb-3 border border-slate-700" />
                 )}
                 {/* Promo Title */}
-                <h3 className="text-xl font-bold text-sky-400 mb-1 group-hover:text-indigo-400 transition-colors">
+                <h3 className="text-xl font-bold text-indigo-400 mb-1 group-hover:text-sky-400 transition-colors">
                   {promo.title}
                 </h3>
                 {/* Promo Description */}
@@ -51,11 +51,11 @@ const SpecialOfferModal = ({ isOpen, onClose, offers = [] }) => {
                 {/* Promo Code */}
                 {promo.code && (
                   <div className="flex items-center gap-2 mb-3">
-                    <span className="bg-sky-500/20 text-sky-400 font-mono px-3 py-1 rounded-lg text-xs tracking-wider select-all border border-sky-500/30">
+                    <span className="bg-indigo-500/20 text-indigo-400 font-mono px-3 py-1 rounded-lg text-xs tracking-wider select-all border border-indigo-500/30">
                       {promo.code}
                     </span>
                     <button
-                      className="text-xs text-indigo-400 hover:underline"
+                      className="text-xs text-sky-400 hover:underline"
                       onClick={() => {navigator.clipboard.writeText(promo.code)}}
                     >
                       Salin
@@ -66,7 +66,7 @@ const SpecialOfferModal = ({ isOpen, onClose, offers = [] }) => {
                 {promo.cta && (
                   <a
                     href={promo.cta.link}
-                    className="block w-full text-center bg-gradient-to-r from-sky-500 via-indigo-500 to-sky-500 hover:from-indigo-500 hover:to-sky-500 text-white font-bold py-2.5 px-4 rounded-lg shadow-md shadow-sky-500/20 transition-all text-base tracking-wide mt-auto"
+                    className="block w-full text-center bg-gradient-to-r from-indigo-600 to-sky-600 hover:from-indigo-500 hover:to-sky-500 text-white font-bold py-2.5 px-4 rounded-lg shadow-md shadow-indigo-500/20 transition-all text-base tracking-wide mt-auto"
                     target="_blank"
                     rel="noopener noreferrer"
                   >

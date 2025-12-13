@@ -15,9 +15,9 @@
   </p>
   <p align="center">
     <!-- Badges -->
-    <img src="https://img.shields.io/github/license/Isaki-Prananda/neverland-store?style=for-the-badge" alt="License">
-    <img src="https://img.shields.io/github/stars/Isaki-Prananda/neverland-store?style=for-the-badge" alt="Stars">
-    <img src="https://img.shields.io/github/forks/Isaki-Prananda/neverland-store?style=for-the-badge" alt="Forks">
+    <img src="https://img.shields.io/github/license/MuhammadIsakiPrananda/neverland-store?style=for-the-badge" alt="License">
+    <img src="https://img.shields.io/github/stars/MuhammadIsakiPrananda/neverland-store?style=for-the-badge" alt="Stars">
+    <img src="https://img.shields.io/github/forks/MuhammadIsakiPrananda/neverland-store?style=for-the-badge" alt="Forks">
   </p>
 </div>
 
@@ -70,7 +70,7 @@ Make sure you have the following software installed on your machine:
 
 1.  **Clone the repository:**
     ```sh
-    git clone https://github.com/Isaki-Prananda/neverland-store.git
+    git clone https://github.com/MuhammadIsakiPrananda/neverland-store.git
     cd neverland-store
     ```
 
@@ -133,4 +133,4 @@ neverland-store-frontend/
 
 This project is distributed under the MIT License. See `LICENSE` for more information.
 
-Copyright (c) 2025 Muhammad Isaki Prananda
+Copyright (c) 2024 Muhammad Isaki Prananda
